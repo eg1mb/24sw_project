@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import ScoreCardcomplete from '../components/ScoreCard/ScoreCardcomplete';
 import Chartbarcomplete from '../components/chartbarCard/Chartbarcomplete';
 
+// 1) components 폴더에 css한 카드 위치
+// 2) import해서 <Chartbarcomplete/>처럼 맞는 위치에 배치 
 function Result() {
   return (
     <div>
@@ -9,15 +11,15 @@ function Result() {
       My Results Report 
     </div>
     <div style={styles.gridContainer}>
+      <Chartbarcomplete/> 
       <ScoreCardcomplete />
-      <Chartbarcomplete/>
       <Chartbarcomplete />
       <Chartbarcomplete/>
     </div>
     </div> 
   );
 }
-
+// grid 형태로 만들어놓은 상태 열을 2개로 만들어야 함 
 const styles = {
   gridContainer: {
     display: 'grid',
