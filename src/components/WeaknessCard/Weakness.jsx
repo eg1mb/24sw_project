@@ -18,32 +18,34 @@ const Weakness = () => {
   }
 
   return (
-    <>
-      <div className="absolute left-2/3 top-1/2 w-1/4 h-1/3 rounded-md bg-[#1B4495] shadow-md text-white">
+    <div className="flex">
+      <div className="w-1/4 h-1/3 rounded-md bg-[#1B4495] shadow-md text-white">
         <div className="static m-5">
           <p className="text-3xl font-bold text-left tracking-normal"> &#x1F44E; 나의 단점은?</p>
         </div>
-        <div className="absolute left-[8%] font-semibold tracking-normal">
-          <p className="mb-3 text-lg">{name} 님은...</p>
+        <div className="font-semibold tracking-normal">
+          <p className="m-3 pl-4 text-lg">{name} 님은...</p>
           <ul>
           {
             weaknesses.map((a, i)=>{
               // 일정 개수의 단점만 보이도록 설정
               if(i < 3){
                 return(
-                  <li className="m-1" key={i}>{a}</li>
+                  <li className="m-1 pl-6" key={i}>{a}</li>
                 )
               } 
             })
           }
         </ul>
         </div>
-        <button type="button"
-         className="absolute left-3/4 top-[78%] w-[20%] h-[13%] rounded-md bg-white text-sm font-semibold tracking-normal text-[#1B4495]" 
-         onClick={clickModal}>더보기</button>
+        <div className="flex justify-end items-end p-4">
+          <button type="button"
+          className="w-[13%] h-[17%] rounded-md bg-white text-sm font-semibold tracking-normal text-[#1B4495]" 
+          onClick={clickModal}>더보기</button>
+        </div>
         {isOpen && <WeaknessModal clickModal={clickModal} isOpen={isOpen} setIsOpen={setIsOpen}/>}
       </div>
-    </>
+    </div>
   )
 }
 
