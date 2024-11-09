@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ScoreCardcomplete from '../components/ScoreCard/ScoreCardcomplete';
 import Chartbarcomplete from '../components/chartbarCard/Chartbarcomplete';
+import Weakness from '../components/WeaknessCard/Weakness'
 
 // 1) components 폴더에 css한 카드 위치
 // 2) import해서 <Chartbarcomplete/>처럼 맞는 위치에 배치 
@@ -15,6 +16,9 @@ function Result() {
       <ScoreCardcomplete />
       <Chartbarcomplete />
       <Chartbarcomplete/>
+    </div>
+    <div>
+      <Weakness/>
     </div>
     </div> 
   );

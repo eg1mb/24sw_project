@@ -9,19 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@headlessui/react": "^2.2.0",
-    "next": "15.0.2",
-    "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028"
-=======
     "chart.js": "^3.9.1",
     "next": "15.0.2",
     "react": "^18.0.0",
     "react-chartjs-2": "^3.3.0",
     "react-dom": "^18.0.0",
     "styled-components": "^6.1.13"
->>>>>>> 8645331b9047b17f87a6abd2e97cabcea83db7b0
   },
   "devDependencies": {
     "eslint": "^8",
