@@ -4,7 +4,7 @@ import Chartbarcomplete from '../components/chartbarCard/Chartbarcomplete';
 import Weakness from '../components/WeaknessCard/Weakness'
 
 // 1) components 폴더에 css한 카드 위치
-// 2) import해서 <Chartbarcomplete/>처럼 맞는 위치에 배치 
+// 2) import해서 <Chartbarcomplete/>처럼 해당된 위치에 배치 
 function Result() {
   return (
     <div>
@@ -17,8 +17,9 @@ function Result() {
       <Chartbarcomplete />
       <Chartbarcomplete/>
     </div>
-    <div>
+    <div style ={styles.gridContainer2}>
       <Weakness/>
+      <Weakness/> 
     </div>
     </div> 
   );
@@ -27,15 +28,23 @@ function Result() {
 const styles = {
   gridContainer: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, minmax(180px, 1fr))', // 최소 크기 조정
+    gridTemplateColumns: '1fr 1fr 1fr 1fr', // 최소 크기 조정
     gridGap: '0px 0px',
     padding: '20px',
     marginTop : '10px',
-    marginLeft : '90px',
-    marginRight : '50px',
+    marginLeft : '160px',
+    marginRight : '90px',
+  },
+  gridContainer2 : {
+    display : 'grid' ,
+    gridTemplateColumns : 'repeat(3, minmax(200px, 1fr))',
+    gridGap : '0px 0px',
+    marginLeft : '190px',
+    marginRight : '90px',
+    marginBottom : '50px',
   },
   lec : {
-    width : '1330px',
+    width : '1200px',
     height : '35px',
     borderRadius: '15px',
     padding: '5px',
@@ -44,8 +53,8 @@ const styles = {
     justifyContent: 'center',     /* 가로로 중앙 정렬 */
     alignItems: 'center', 
     color : "#ffffff"  ,
-    marginLeft : '90px',
-    marginTop : '40px'
+    marginLeft : '160px',
+    marginTop : '20px'
   },
 };
 

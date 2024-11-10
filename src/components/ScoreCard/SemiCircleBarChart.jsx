@@ -12,8 +12,8 @@ const Main = styled.div`
   position: relative;
   width: auto; // 크기 조정
   height: auto; // 크기 조정
-  max-width : 175px;
-  max-height : 175px;
+  max-width : 180px;
+  max-height : 180px;
   
 `;
 
