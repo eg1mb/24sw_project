@@ -31,10 +31,10 @@ const runMiddleware = (req, res, fn) => {
 };
 
 const runPythonScript = async (file) => {
-  // 파이썬 존재하는 주소 
-  const pythonPath = ;
-  // 파이썬 파일 존재하는 주소 
-  const pythonfilePath = 'C:\\totalfiles\\Decibel_check.py'
+  // 자기 컴퓨터에서 파이썬 존재하는 주소 
+  const pythonPath = 'C:\\Users\\khy12\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
+  // 자기 컴퓨터에서 파이썬 파일 존재하는 주소 
+  const pythonfilePath = path.join(process.cwd(), 'pythonfiles' , 'Decibel_check.py')
   return new Promise((resolve, reject) => {
      const {spawn} = require('child_process');
       const childPython = spawn( pythonPath , [pythonfilePath , file  ])
@@ -66,6 +66,7 @@ const convertAudio = async (filePath, outputFormat) => {
     const outputPath = path.join(uploadPath, `output_${Date.now()}.${outputFormat}`);
     const ffmpegPath = 'C:\\ffmpeg\\bin\\ffmpeg.exe';
     exec(`"${ffmpegPath}" -i "${filePath}" "${outputPath}"`, (error, stdout, stderr) => {
+      // python에서 return 받은 것 
       console.log(stdout);
       console.error(stderr);
       if (error) {
