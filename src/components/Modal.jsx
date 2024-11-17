@@ -12,7 +12,10 @@ const Modal = ({ isOpen, onClose , contents }) => {
         <button style={styles.closeButton} onClick={onClose}>x</button>
         <h2 style={styles.title}>모달 내용</h2>
         <div style={styles.separator}></div> {/* 회색 얇은 선 */}
-        <p>{contents}</p>
+        <p>데이터 데시벨 : 180 decibel (70점대 : 150 ~ 190 사이) <br/>
+          데이터 속도  <br/>
+          음정 정확도 : 
+        </p>
       
       </div>
     </div>

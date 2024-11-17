@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ScoreCardcomplete from '../components/ScoreCard/ScoreCardcomplete';
 import Chartbarcomplete from '../components/chartbarCard/Chartbarcomplete';
 import Weakness from '../components/WeaknessCard/Weakness'
+import Strength from '../components/strengthCard/Strength'
 
 // 1) components 폴더에 css한 카드 위치
 // 2) import해서 <Chartbarcomplete/>처럼 해당된 위치에 배치 
@@ -19,7 +20,7 @@ function Result() {
     </div>
     <div style ={styles.gridContainer2}>
       <Weakness/>
-      <Weakness/> 
+      <Strength/> 
     </div>
     </div> 
   );
