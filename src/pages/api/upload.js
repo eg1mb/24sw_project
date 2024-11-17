@@ -32,7 +32,7 @@ const runMiddleware = (req, res, fn) => {
 
 const runPythonScript = async (file) => {
   // 파이썬 존재하는 주소 
-  const pythonPath = 'C:\\Users\\khy12\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
+  const pythonPath = ;
   // 파이썬 파일 존재하는 주소 
   const pythonfilePath = 'C:\\totalfiles\\Decibel_check.py'
   return new Promise((resolve, reject) => {
