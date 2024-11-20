@@ -11,6 +11,7 @@ export default function TestPage() {
   // 녹음 시작
   const startRecording = async () => {
     setRecording(true);
+    audioChunksRef.current = [] 
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const mediaRecorder = new MediaRecorder(stream);
@@ -21,11 +22,13 @@ export default function TestPage() {
         }
       };
 
-      mediaRecorder.onstop = () => {
+      mediaRecorder.onstop = async () => {
         const audioBlob = new Blob(audioChunksRef.current, { type: mediaRecorder.mimeType });
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudioURL(audioUrl);
         audioChunksRef.current = [];
+        // 바로 upload 수행 
+        await uploadAudio(audioBlob)
       };
 
       mediaRecorderRef.current = mediaRecorder;
@@ -44,19 +47,20 @@ export default function TestPage() {
   };
 
   // 오디오 업로드
-  const uploadAudio = async () => {
-    if (!audioURL) return;
+  const uploadAudio = async (audioBlob) => {
+    if (!audioBlob) return;
 
-    console.log("Uploading audio...");
 
     const formData = new FormData();
-    const audioBlob = await fetch(audioURL).then((res) => res.blob());
+
     formData.append(
       "speech",
       new File([audioBlob], "recording.webm", { type: "audio/webm" })
     );
-
+    
     try {
+      console.log(formData)
+      console.log("순서 멀쩡")
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
@@ -72,12 +76,7 @@ export default function TestPage() {
     }
   };
 
-  // 녹음 중지 후 업로드
-  const handleStopRecording = () => {
-    stopRecording();
-    uploadAudio();
-  };
-
+  
   return (
     <div style={styles.container}>
       <div style={styles.scriptBox}>
@@ -90,7 +89,7 @@ export default function TestPage() {
           style={styles.micButton}
           onClick={() => {
             if (recording) {
-              handleStopRecording();
+              stopRecording();
             } else {
               startRecording();
             }

@@ -57,7 +57,6 @@ def main (file_path ) :
 
 if __name__ == "__main__":
     file_path = sys.argv[1]  # file_path는 명령어 인자에서 받음
-    print(file_path)
     result = main(file_path)
     print(json.dumps(result))  # 결과를 출력
     # {"목소리 크기" : 95 , "목소리 속도" : 85 ... } <= 이런 json 형태로 만들어 node.js에 return 필요 
