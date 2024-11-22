@@ -25,7 +25,7 @@ def stt(apikey, audio_file_path):
     transcription_json = transcription.model_dump_json()
 
     print("text 및 text.json 생성 완료. 두개의 값을 반환합니다.")
-    return text, transcription_json
+    return text
 
 
 def grammar(apikey, text):
@@ -82,4 +82,4 @@ if __name__ == "__main__":
 
     # Run the main function
     result = main(apikey, audio_file_path)
-    print(json.dumps(result))
+    print(json.dumps(result, ensure_ascii=False, indent=4))
