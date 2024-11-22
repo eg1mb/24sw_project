@@ -114,7 +114,7 @@ def main(apikey, audio_file_path):
 
 # Example usage
 if __name__ == "__main__":
-    apikey = "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"
+    apikey = "key"
     audio_file_path = sys.argv[1]
 
     # Run the main function
