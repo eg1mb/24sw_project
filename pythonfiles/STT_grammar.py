@@ -1,3 +1,4 @@
+
 from openai import OpenAI
 
 def stt(apikey, audio_file_path):
