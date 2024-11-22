@@ -7,6 +7,7 @@ export default function TestPage() {
   const [audioURL, setAudioURL] = useState(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
+  const [feedback, setFeedback] = useState(null);
 
   // 녹음 시작
   const startRecording = async () => {
@@ -60,14 +61,16 @@ export default function TestPage() {
     
     try {
       console.log(formData)
-      console.log("순서 멀쩡")
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       });
 
       if (response.ok) {
-        
+        const jsonResponse = response.json();
+        // JSON에서 average_score와 speech_rate 받기
+        const { average_score} = jsonResponse;
+        setFeedback({ average_score});
       } else {
         console.error("Upload failed:", response.statusText);
       }
@@ -100,14 +103,20 @@ export default function TestPage() {
       </div>
 
       {audioURL && (
-        <audio controls src={audioURL} style={{ marginTop: '20px' }}>
-          Your browser does not support the audio element.
-        </audio>
+        <div>
+          <audio controls src={audioURL} style={{ marginTop: '20px' }}>
+            Your browser does not support the audio element.
+          </audio>
+          {feedback && (
+            <div style={{ marginTop: '20px', color: '#333' }}>
+              <p><strong>Average Score:</strong> {feedback.average_score}</p>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
 }
-
 
 const styles = {
   container: {
