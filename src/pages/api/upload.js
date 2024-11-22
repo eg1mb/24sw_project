@@ -30,7 +30,7 @@ const runMiddleware = (req, res, fn) => {
     });
   });
 };
-// 파이썬 돌리는  파일 
+// 목소리 속도 
 const runPythonScript = async (file) => {
   const z = Math.floor(Math.random() * 1000) + 1
   const pythonPath = 'C:\\Users\\khy12\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
@@ -41,6 +41,7 @@ const runPythonScript = async (file) => {
 
   return new Promise((resolve, reject) => {
     const { spawn } = require('child_process');
+    const regex = new RegExp('\\{(.*?)\\}', 'g');  // 중괄호로 묶인 부분을 찾는 정규 표현식
     const childPython = spawn(pythonPath, [pythonfilePath, file, outputPath2], {
       encoding: 'utf-8'  // 인코딩을 UTF-8로 설정
     });
@@ -60,7 +61,7 @@ const runPythonScript = async (file) => {
       } else {
         try {
           // 마지막 줄만 추출
-          const lastLine = result.trim().split("\n").pop();  // 마지막 줄만 추출
+          const lastLine =  result.match(regex);  // 마지막 줄만 추출
           console.log('Last result:', lastLine);  // 마지막 줄 확인
           
           // 마지막 줄이 JSON이라면 파싱
@@ -75,8 +76,52 @@ const runPythonScript = async (file) => {
     });
   });
 };
+// chat gpt api 
+const runPythonScript2 = async (file) => {
+  const pythonPath = 'C:\\Users\\khy12\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
+  const pythonfilePath = path.join(process.cwd(), 'pythonfiles', 'STT_grammar.py');
 
-    
+  return new Promise((resolve, reject) => {
+    const { spawn } = require('child_process');
+    // 중괄호로 묶인 부분을 찾는 정규 표현식
+    const childPython = spawn(pythonPath, [pythonfilePath, file], {
+      encoding: 'utf-8'  // 인코딩을 UTF-8로 설정
+    });
+    let result = '';
+
+    childPython.stdout.on('data', (data) => {
+      result += data.toString(); 
+    });
+
+    childPython.stderr.on('data', (data) => {
+      console.error(`stderr : ${data.toString()}`);
+    });
+
+    childPython.on('close', (code) => {
+      if (code !== 0) {
+        reject(new Error(`Python script failed with code ${code}`));
+      } else {
+        try {
+          // 마지막 줄만 추출
+         console.log("결과 : " , result )
+          
+          // 마지막 줄이 JSON이라면 파싱
+          
+          resolve(result);  // JSON 객체 반환
+        } catch (error) {
+          console.error('Error parsing result:', error.message); // 에러 로그
+          console.error('Python result:', result.trim()); // 원본 데이터 확인
+          reject(new Error('Failed to parse Python result'));
+        }
+      }
+    });
+  });
+};
+
+
+
+
+
 
 
 const convertAudio = async (filePath, outputFormat) => {
@@ -112,19 +157,20 @@ export default async (req, res) => {
       const fileBuffer = await fsPromises.readFile(convertedFilePath);
       res.setHeader('Content-Disposition', 'attachment; filename=converted.mp3');
       res.setHeader('Content-Type', 'audio/mpeg');
-      res.end(fileBuffer);
 
       //await fsPromises.unlink(uploadedFilePath);
       //await fsPromises.unlink(convertedFilePath);
       // 파이썬 파일 보내기 
       const file = convertedFilePath 
       const pythonResult = await runPythonScript(file)
+      const pythonResult2 = await runPythonScript2(file)
      
       const jsonResponse = {
         average_score : pythonResult.average_score,
+        decibel_count : pythonResult.decibel_count,
       }
       
-      console.log("json" , jsonResponse)
+      console.log("json response" , jsonResponse)
 
 res.status(200).json(jsonResponse);
 } catch (error) {

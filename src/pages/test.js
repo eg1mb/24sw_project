@@ -64,13 +64,17 @@ export default function TestPage() {
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
+        headers : {
+          'Cache-Control' : 'no-cache',
+        }
       });
 
       if (response.ok) {
-        const jsonResponse = response.json();
+        console.log("결과:", response )
+        const jsonResponse = await response.json();
         // JSON에서 average_score와 speech_rate 받기
-        const { average_score} = jsonResponse;
-        setFeedback({ average_score});
+        const { average_score , decibel_count } = jsonResponse;
+        setFeedback({ average_score , decibel_count}); 
       } else {
         console.error("Upload failed:", response.statusText);
       }
@@ -110,6 +114,7 @@ export default function TestPage() {
           {feedback && (
             <div style={{ marginTop: '20px', color: '#333' }}>
               <p><strong>Average Score:</strong> {feedback.average_score}</p>
+              <p><strong>데시벨 크기 :</strong>{Math.round(feedback.decibel_count * 100) / 100 }</p>
             </div>
           )}
         </div>

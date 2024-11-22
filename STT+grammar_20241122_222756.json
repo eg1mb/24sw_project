@@ -1,0 +1,7 @@
+{
+    "text": [
+        "Start Recording",
+        "{\"text\":\"Start Recording\"}"
+    ],
+    "grammar_correction": "{\n  \"total_score\": 90,\n  \"strengths\": \"문장이 간결하고 명확함\",\n  \"weaknesses\": \"특별한 약점 없음\",\n  \"total_errors\": 0,\n  \"repetitions\": 0,\n  \"content_feedback\": \"문장이 자연스럽고 정확하게 표현됨\"\n}"
+}

@@ -1,5 +1,8 @@
-
+import os
 from openai import OpenAI
+import sys 
+import json
+from datetime import datetime
 
 def stt(apikey, audio_file_path):
     # Initialize the OpenAI client
@@ -22,9 +25,6 @@ def stt(apikey, audio_file_path):
     print("text 및 text.json 생성 완료. 두개의 값을 반환합니다.")
     return text, transcription_json
 
-import os
-from openai import OpenAI
-import json
 
 def grammar(apikey, text):
     # Initialize the OpenAI client
@@ -46,17 +46,13 @@ def grammar(apikey, text):
     response_dict = response.to_dict()
 
     # Save response to a JSON file
-    output_file = generate_output_file(base_name="grammar_check", extension="json", directory=".")
+    output_file = generate_output_file(base_name="grammar_check", extension="json", directory="./grammers")
 
     # Return the response JSON data
     return response_dict
 
-import json
-import os
-from datetime import datetime
-
 # 파일 이름 생성 함수
-def generate_output_file(base_name="STT+Grammar", extension="json", directory="."):
+def generate_output_file(base_name="STT+Grammar", extension="json", directory="./grammers"):
     """
     오늘 날짜와 시간을 기반으로 파일 이름을 생성합니다.
 
@@ -95,7 +91,6 @@ def save_json(grammarcheck):
 
     return grammarcheck
 
-import json
 
 # Main 함수
 def main(apikey, audio_file_path):
@@ -119,7 +114,7 @@ def main(apikey, audio_file_path):
 
 # Example usage
 if __name__ == "__main__":
-    apikey = "key"
+    apikey = "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"
     audio_file_path = sys.argv[1]
 
     # Run the main function

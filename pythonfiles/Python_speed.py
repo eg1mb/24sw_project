@@ -7,11 +7,16 @@ import json
 import sys
 import requests
 from nltk.tokenize import sent_tokenize
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 nltk.download('punkt')  
 nltk.download('punkt_tab')
 
+### 100번째 줄 json 형태처럼 
 
+## 1. speed 
 # 음성 파일 형식을 WAV로 변환하기
 def convert_to_wav(input_file, output_file):
     try:
@@ -54,7 +59,7 @@ def score_speed(speed):
         return 100
 
 
-def analyze_speech(input_file):
+def analyze_speech(input_file , file_path):
 
     # WAV 파일 로드 및 총 길이 측정
     if not input_file.lower().endswith(".wav"):
@@ -87,15 +92,63 @@ def analyze_speech(input_file):
         speech_rate = word_count / sentence_durations * 60  # 분당 단어수 (WPM)
         score = score_speed(speech_rate)
         scores.append(score)
-        print(f"문장: {sentence[:50]}... | 발화 속도: {int(speech_rate)} WPM | 점수: {score}")
+        
 
     # 최종 평균 점수
     average_score = round(sum(scores) / len(scores))  # 정수로 변환
+    decibel_count = main2(file_path) 
     
-    print(f"\n최종 평균 발화 속도 점수: {average_score}")
-    print(json.dumps({"average_score" : average_score },  ensure_ascii=False) ), 
+    ####json 이런 형식으로 보내기! ({" " : [ ]} <= 이런 형식으로 변수 : 리스트 만들어도 가능  ) 
+    print(json.dumps({"average_score" : average_score , "decibel_count" : decibel_count  },  ensure_ascii=False) ), 
 
-    # JSON 반환
+## 2 목소리 크기 출력  
+def analyze_file(file_path, interval=0.1):
+    audio, sr = librosa.load(file_path, sr=None)
+    frame_length = int(interval * sr)
+    rms_values = []
+
+    for start in range(0, len(audio), frame_length):
+        end = start + frame_length
+        frame = audio[start:end]
+        rms = np.sqrt(np.mean(frame**2))
+        rms_values.append(rms)
+
+    # RMS 값 중 가장 낮은 값을 기준으로 기준 데시벨 설정
+    min_rms = np.min(rms_values)
+    decibel_values = 20 * np.log10(np.maximum(min_rms, rms_values) / min_rms)
+    return decibel_values, interval
+
+def calculate_confidence(decibel_values):
+    average_decibel = np.mean(decibel_values)
+    threshold = average_decibel * 0.8  # 80%를 기준으로 설정
+
+    confidence_judgement = decibel_values < threshold
+
+    print(f"Average Decibel: {average_decibel}")
+    print(f"Threshold (80% of Average): {threshold}")
+
+    return average_decibel, threshold, confidence_judgement
+
+def main2 (file_path ) : 
+    # 파일 경로를 지정하여 데시벨 분석 수행
+
+    # 파일을 분석하여 데시벨 값 가져오기
+    decibel_values, interval = analyze_file(file_path)
+
+    # 타임스탬프 생성
+    times = [i * interval for i in range(len(decibel_values))]
+
+    # 평균 데시벨의 80% 값 계산 및 판단
+    average_decibel, threshold, confidence_judgement = calculate_confidence(decibel_values)
+
+    # False에 해당하는 값들의 개수 세기
+    true_count = sum(confidence_judgement)
+    false_count = len(confidence_judgement) - true_count
+
+    # %로 나타내기
+    true_percentage = 100 - (true_count / len(confidence_judgement) * 100)
+    return true_percentage 
+
     
 
 
@@ -106,11 +159,12 @@ if __name__ == "__main__":
     output_wav = sys.argv[2]  # 변환될 WAV 파일 경로
     # MP3를 WAV로 변환
     try:
+        #mp3 파일 , wav 파일 인자로 
         convert_to_wav(file_path , output_wav)
 
         # 분석 수행
-        result = analyze_speech(output_wav)
-        # 보내기 준비 
+        result = analyze_speech(output_wav , file_path) #file_path = decibelCheck용 
+        
         
     except Exception as e:
         print(f"Error occurred: {e}")
