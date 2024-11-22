@@ -90,13 +90,14 @@ def analyze_speech(input_file):
         print(f"문장: {sentence[:50]}... | 발화 속도: {int(speech_rate)} WPM | 점수: {score}")
 
     # 최종 평균 점수
-    average_score = round(sum(scores) / len(scores))  # 정수로 변환
+    speech_average_score = round(sum(scores) / len(scores))  # 정수로 변환
     
-    print(f"\n최종 평균 발화 속도 점수: {average_score}")
-    print(json.dumps({"average_score" : average_score },  ensure_ascii=False) ), 
+    print(f"\n최종 평균 발화 속도 점수: {speech_average_score}")
+    print(json.dumps({"average_score" : speech_average_score},  ensure_ascii=False) ), 
 
     # JSON 반환
-    
+    #리턴 값을 speech_average_score으로 저장하기로 했습니다.
+    #나중에 도영님 코드를 이용해서 하게 된다면 각 문장마다의 score를 계산해서 이를 그래프로 나타낼려고 합니다. 이때는 speech_score로 리턴하기로 하겠습니다
 
 
 # 메인 함수
