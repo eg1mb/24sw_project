@@ -7,7 +7,7 @@ const WeaknessModal = ({ clickModal, isOpen, setIsOpen, weaknesses }) => {
         <div style={styles.diaBack}></div>
         <div style={styles.main}>
           <div style={styles.diaPanel}>
-            <div style={styles.title}>&#x1F44E; 나의 약점</div>
+            <div style={styles.title}>&#x1F44E; 나의 장점</div>
             <ul style={styles.content}>
               {weaknesses.map((a, i) => (
                 <li className="m-1" key={i}>{a}</li>
