@@ -4,6 +4,9 @@ import os
 import json
 import sys
 from datetime import datetime
+import io
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 def stt(apikey, audio_file_path):
@@ -17,14 +20,11 @@ def stt(apikey, audio_file_path):
             file=audio_file
         )
 
-    print("STT 완료")
-
     #text 만들기
     text = transcription.text
     # Return the transcription in JSON format
     transcription_json = transcription.model_dump_json()
 
-    print("text 및 text.json 생성 완료. 두개의 값을 반환합니다.")
     return text
 
 
@@ -83,3 +83,5 @@ if __name__ == "__main__":
     # Run the main function
     result = main(apikey, audio_file_path)
     print(json.dumps(result, ensure_ascii=False, indent=4))
+    
+

@@ -84,6 +84,7 @@ const runPythonScript2 = async (file) => {
   return new Promise((resolve, reject) => {
     const { spawn } = require('child_process');
     // 중괄호로 묶인 부분을 찾는 정규 표현식
+    const regax = new RegExp('{.*')
     const childPython = spawn(pythonPath, [pythonfilePath, file], {
       encoding: 'utf-8'  // 인코딩을 UTF-8로 설정
     });
@@ -102,12 +103,11 @@ const runPythonScript2 = async (file) => {
         reject(new Error(`Python script failed with code ${code}`));
       } else {
         try {
-          // 마지막 줄만 추출
-         console.log("결과 : " , result )
-          
-          // 마지막 줄이 JSON이라면 파싱
-          
-          resolve(result);  // JSON 객체 반환
+          // 마지막 줄만 추측 
+          console.log("result 결과 :" , result)
+          const result2 = result.trim()
+          const jsonResult = JSON.parse(result2); 
+          resolve(jsonResult);  // JSON 객체 반환
         } catch (error) {
           console.error('Error parsing result:', error.message); // 에러 로그
           console.error('Python result:', result.trim()); // 원본 데이터 확인
@@ -164,10 +164,17 @@ export default async (req, res) => {
       const file = convertedFilePath 
       const pythonResult = await runPythonScript(file)
       const pythonResult2 = await runPythonScript2(file)
-     
+
       const jsonResponse = {
         average_score : pythonResult.average_score,
         decibel_count : pythonResult.decibel_count,
+        text : pythonResult2.text,
+        strength : pythonResult2.grammar_correction.strengths,
+        weakness : pythonResult2.grammar_correction.weaknesses,
+        feedback : pythonResult2.grammar_correction.content_feedback,
+        total_score : pythonResult2.grammar_correction.total_score
+
+
       }
       
       console.log("json response" , jsonResponse)

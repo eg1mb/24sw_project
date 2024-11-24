@@ -2,8 +2,9 @@
 // test화면 
 import React, { useState, useRef } from 'react';
 
-export default function TestPage() {
+export default function Test() {
   const [recording, setRecording] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading 상태 추가
   const [audioURL, setAudioURL] = useState(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
@@ -12,7 +13,7 @@ export default function TestPage() {
   // 녹음 시작
   const startRecording = async () => {
     setRecording(true);
-    audioChunksRef.current = [] 
+    audioChunksRef.current = [];
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const mediaRecorder = new MediaRecorder(stream);
@@ -28,8 +29,7 @@ export default function TestPage() {
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudioURL(audioUrl);
         audioChunksRef.current = [];
-        // 바로 upload 수행 
-        await uploadAudio(audioBlob)
+        await uploadAudio(audioBlob);
       };
 
       mediaRecorderRef.current = mediaRecorder;
@@ -51,73 +51,87 @@ export default function TestPage() {
   const uploadAudio = async (audioBlob) => {
     if (!audioBlob) return;
 
+    setLoading(true); // Loading 시작
 
     const formData = new FormData();
-
     formData.append(
       "speech",
       new File([audioBlob], "recording.webm", { type: "audio/webm" })
     );
-    
+
     try {
-      console.log(formData)
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
-        headers : {
-          'Cache-Control' : 'no-cache',
+        headers: {
+          'Cache-Control': 'no-cache',
         }
       });
 
       if (response.ok) {
-        console.log("결과:", response )
         const jsonResponse = await response.json();
-        // JSON에서 average_score와 speech_rate 받기
-        const { average_score , decibel_count } = jsonResponse;
-        setFeedback({ average_score , decibel_count}); 
+        const { average_score, decibel_count, text, strength, weakness, feedback, total_score } = jsonResponse;
+        setFeedback({ average_score, decibel_count, text, strength, weakness, feedback, total_score });
+        
+        // 데이터 로드 완료 시 이동
+        setLoading(false); 
       } else {
         console.error("Upload failed:", response.statusText);
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error uploading file:", error);
+      setLoading(false);
     }
   };
 
-  
   return (
     <div style={styles.container}>
-      <div style={styles.scriptBox}>
-        <h2 style={styles.scriptText}>script</h2>
-        <p style={styles.hiddenText}>●●●●●●</p>
-      </div>
+      {loading ? ( // 로딩 화면 표시
+        <div style={styles.loadingBox}>
+          <p style={styles.loadingText}>Loading...</p>
+        </div>
+      ) : (
+        <>
+          <div style={styles.scriptBox}>
+            <h2 style={styles.scriptText}>script</h2>
+            <p style={styles.hiddenText}>●●●●●●</p>
+          </div>
 
-      <div style={styles.recordBox}>
-        <button
-          style={styles.micButton}
-          onClick={() => {
-            if (recording) {
-              stopRecording();
-            } else {
-              startRecording();
-            }
-          }}
-        >
-          <span role="img" aria-label="microphone">🎤</span> {recording ? "Stop Recording" : "Start Recording"}
-        </button>
-      </div>
+          <div style={styles.recordBox}>
+            <button
+              style={styles.micButton}
+              onClick={() => {
+                if (recording) {
+                  stopRecording();
+                } else {
+                  startRecording();
+                }
+              }}
+            >
+              <span role="img" aria-label="microphone">🎤</span> {recording ? "Stop Recording" : "Start Recording"}
+            </button>
+          </div>
 
-      {audioURL && (
-        <div>
-          <audio controls src={audioURL} style={{ marginTop: '20px' }}>
-            Your browser does not support the audio element.
-          </audio>
-          {feedback && (
-            <div style={{ marginTop: '20px', color: '#333' }}>
-              <p><strong>Average Score:</strong> {feedback.average_score}</p>
-              <p><strong>데시벨 크기 :</strong>{Math.round(feedback.decibel_count * 100) / 100 }</p>
+          {audioURL && (
+            <div>
+              <audio controls src={audioURL} style={{ marginTop: '20px' }}>
+                Your browser does not support the audio element.
+              </audio>
+              {feedback && (
+                <div style={{ marginTop: '20px', color: '#333' }}>
+                  <p><strong>원문 :</strong>{feedback.text}</p>
+                  <p><strong>총점 :</strong>{feedback.total_score}</p>
+                  <p><strong>피드백:</strong>{feedback.feedback}</p>
+                  <p><strong>말소리 속도 :</strong> {feedback.average_score}</p>
+                  <p><strong>말소리 크기 :</strong>{Math.round(feedback.decibel_count * 100) / 100}</p>
+                  <p><strong>강점 :</strong>{feedback.strength}</p>
+                  <p><strong>약점 :</strong>{feedback.weakness}</p>
+                </div>
+              )}
             </div>
           )}
-        </div>
+        </>
       )}
     </div>
   );
@@ -169,5 +183,15 @@ const styles = {
     borderRadius: '8px',
     cursor: 'pointer',
     border: 'none',
+  },
+  loadingBox: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh',
+  },
+  loadingText: {
+    fontSize: '24px',
+    color: '#333',
   },
 };
