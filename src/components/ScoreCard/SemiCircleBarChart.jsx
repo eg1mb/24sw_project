@@ -46,14 +46,14 @@ const Description = styled.div`
 
 `
 
-export default function SemiCircleBarChart({ score, name }) {
+export default function SemiCircleBarChart({score}) {
   const Data = {
     labels: [],
     datasets: [
       {
         data: [score, 100 - score],
-        backgroundColor: ["#2d5ace", "#a0a0a0"],
-        borderColor: ["#2d5ace", "#a0a0a0"],
+        backgroundColor: ["#2d5ace", "#ffffff"],
+        borderColor: ["#2d5ace", "#ffffff"],
         circumference: 180, // 반원 도넛
         rotation: 270, // 도넛 회전
       },
@@ -63,13 +63,10 @@ export default function SemiCircleBarChart({ score, name }) {
   const Options = {
     cutout: "95%",
     plugins: {
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            return `${context.formattedValue}%`;
-          },
-        },
-      },
+      tooltip: {enabled: false},
+    },
+    hover: {
+      mode: null,
     },
   };
 

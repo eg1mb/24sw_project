@@ -1,14 +1,9 @@
 import OverallChart from './OverallChart'
 import OverallScore from './OverallScore';
 
-function OverallCardcomplete() {
+function OverallCardcomplete({Score}) {
 
-  let prData = [{label: '속도', score: 0}, {label: '크기', score: 0}, {label: '전달력', score: 0}]
-  let score = [50, 60, 70]
-  
-  prData.map((a, i) => (
-    a.score = score[i]
-  ))
+  let prData = [{label: '속도', score: Score.speed_score}, {label: '크기', score: Score.decibel_score}, {label: '전달력', score: Score.clearity_score}]
 
   return (
     <div>

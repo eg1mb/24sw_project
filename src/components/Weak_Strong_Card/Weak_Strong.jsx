@@ -1,5 +1,5 @@
 import { useState } from "react"
-import StrengthModal from "./StrengthModal"
+import WeaknessModal from "./Weak_Strong_Modal"
 
 // backend 유저 정보
 let name = "이름"
@@ -16,7 +16,7 @@ const Weakness = () => {
     <div>
       <div style={styles.main}>
         <div style={styles.title}>
-          <p> &#x1F44E; 나의 장점은?</p>
+          <p> &#x1F44E; 나의 단점은?</p>
           <p style={styles.title_sub}>{name} 님은...</p>
         </div>
         <div style={styles.content}>
@@ -40,7 +40,7 @@ const Weakness = () => {
             더보기
           </button>
         </div>
-        {isOpen && <StrengthModal clickModal={clickModal} isOpen={isOpen} setIsOpen={setIsOpen} weaknesses={weaknesses}/>}
+        {isOpen && <WeaknessModal clickModal={clickModal} isOpen={isOpen} setIsOpen={setIsOpen} weaknesses={weaknesses}/>}
       </div>
     </div>
   )
