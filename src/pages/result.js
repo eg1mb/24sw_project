@@ -3,6 +3,7 @@ import ScoreCardcomplete from '../components/ScoreCard/ScoreCardcomplete';
 import Chartbarcomplete from '../components/chartbarCard/Chartbarcomplete';
 import Overallcomplete from '../components/overallCard/OverallCardcomplete';
 import WeakStrongCard from '../components/Weak_Strong_Card/Weak_Strong';
+import styled from 'styled-components';
 
 /*
 upload.js 에서 데이터를 받아오는 코드 
@@ -47,14 +48,25 @@ const DummyUser = {
 // 2) import해서 <Chartbarcomplete/>처럼 해당된 위치에 배치 
 function Result() {
   return (
-    <div>
+   <>
+      <Container>
       <ScoreCardcomplete Score={DummyScore} User={DummyUser}/>
-    </div> 
+      <WeakStrongCard Score={DummyScore} User={DummyUser}/>
+    </Container>
+    <Container>
+      <Chartbarcomplete Score={DummyScore}/>
+    </Container>
+    <Container>
+      <Overallcomplete Score={DummyScore}/>
+    </Container>
+   </>
   );
 }
 // grid 형태로 만들어놓은 상태 열을 2개로 만들어야 함 
-const styles = {
-  
-};
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  padding: 40px 100px;
+`;
 
 export default Result;

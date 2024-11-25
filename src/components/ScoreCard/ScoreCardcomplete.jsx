@@ -5,7 +5,6 @@ function ScoreCardcomplete({Score}) {
   return (
       <div>
         <div style={{
-          margin: '20px',
           position: 'relative',
           width: '100%',
           height: '100%',

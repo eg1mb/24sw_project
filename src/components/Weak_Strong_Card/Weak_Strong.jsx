@@ -1,11 +1,7 @@
 import { useState } from "react"
-import WeaknessModal from "./Weak_Strong_Modal"
+import WeakStrongModal from "./Weak_Strong_Modal"
 
-// backend 유저 정보
-let name = "이름"
-let weaknesses = ["약점 1", "약점 2", "약점 3", "정말로 왼쪽 정렬이 되었는지 확인하기 위한 내용"]
-
-const Weakness = () => {
+const WeakStrong = ({Score, User}) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const clickModal = () => {
@@ -17,11 +13,11 @@ const Weakness = () => {
       <div style={styles.main}>
         <div style={styles.title}>
           <p> &#x1F44E; 나의 단점은?</p>
-          <p style={styles.title_sub}>{name} 님은...</p>
+          <p style={styles.title_sub}>{User.name} 님은...</p>
         </div>
         <div style={styles.content}>
           <ul>
-            {weaknesses.map((a, i) => {
+            {Score.weakness.map((a, i) => {
               if (i < 3) {
                 return (
                   <li key={i}>{a}</li>
@@ -40,7 +36,7 @@ const Weakness = () => {
             더보기
           </button>
         </div>
-        {isOpen && <WeaknessModal clickModal={clickModal} isOpen={isOpen} setIsOpen={setIsOpen} weaknesses={weaknesses}/>}
+        {isOpen && <WeakStrongModal clickModal={clickModal} isOpen={isOpen} setIsOpen={setIsOpen} weaknesses={Score.weakness}/>}
       </div>
     </div>
   )
@@ -93,4 +89,4 @@ const styles = {
   },
 }
 
-export default Weakness
+export default WeakStrong

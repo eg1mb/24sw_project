@@ -7,11 +7,12 @@ function MyApp({ Component, pageProps }) {
   return(
   <div>
     <Header/>
-  <Component {...pageProps} 
-  style = {{
-    marginBottom : '70px'
-  }}/>
-  <Navbar/>
+    <main style = {{
+      marginBottom : '70px'
+    }}>
+      <Component {...pageProps}/>
+    </main>
+    <Navbar/>
   </div> 
 
   )

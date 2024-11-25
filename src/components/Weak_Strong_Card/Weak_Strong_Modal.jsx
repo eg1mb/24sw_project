@@ -1,4 +1,4 @@
-const WeaknessModal = ({ clickModal, isOpen, setIsOpen, weaknesses }) => {
+const WeakStrongModal = ({ clickModal, isOpen, setIsOpen, weaknesses }) => {
   if (!isOpen) return null;
 
   return (
@@ -88,4 +88,4 @@ const styles = {
   },
 }
 
-export default WeaknessModal
+export default WeakStrongModal
