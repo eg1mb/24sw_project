@@ -8,33 +8,58 @@ const WeakStrong = ({Score, User}) => {
     setIsOpen(!isOpen)
   }
 
+  // 장점 이모지 ;
+
   return (
     <div>
       <div style={styles.main}>
-        <div style={styles.title}>
-          <p> &#x1F44E; 나의 단점은?</p>
-          <p style={styles.title_sub}>{User.name} 님은...</p>
-        </div>
-        <div style={styles.content}>
-          <ul>
-            {Score.weakness.map((a, i) => {
-              if (i < 3) {
-                return (
-                  <li key={i}>{a}</li>
-                )
-              }
-              return null;
-            })}
-          </ul>
-        </div>
-        <div style={styles.button}>
+        <div style={styles.titleBox}>
+          <div  style={styles.title}>
+            <p>&#x1f5e3; {User.name} 님의 장점과 단점은?</p>
+          </div>
           <button
-            type="button"
-            style={styles.button_sub}
-            onClick={clickModal}
-          >
-            더보기
-          </button>
+              type="button"
+              style={styles.button}
+              onClick={clickModal}
+            >
+              +
+            </button>
+        </div>
+        <div style={styles.contentWrapper}>
+          <div>
+            <div style={styles.title}>
+              <p>&#x1F44D; 나의 장점은?</p>
+            </div>
+            <div style={styles.content}>
+              <ul>
+                {Score.strength.map((a, i) => {
+                  if (i < 3) {
+                    return (
+                      <li style={styles.list} key={i}>{a}</li>
+                    )
+                  }
+                  return null;
+                })}
+              </ul>
+            </div>
+          </div>
+          <div>
+            <div style={styles.title}>
+              <p>&#x1F44E; 나의 단점은?</p>
+            </div>
+            <div style={styles.content}>
+              <ul>
+                {Score.weakness.map((a, i) => {
+                  if (i < 3) {
+                    return (
+                      <li style={styles.list} key={i}>{a}</li>
+                    )
+                  }
+                  return null;
+                })}
+              </ul>
+            </div>
+          </div>
         </div>
         {isOpen && <WeakStrongModal clickModal={clickModal} isOpen={isOpen} setIsOpen={setIsOpen} weaknesses={Score.weakness}/>}
       </div>
@@ -47,12 +72,18 @@ const styles = {
     position: "relative",
     width: "auto",
     height: "auto",
-    maxWidth: "400px",
-    maxHeight: "250px",
+    maxWidth: "100%",
+    maxHeight: "400px",
     borderRadius: "10px",
     backgroundColor: "#1B4495",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
     color: "white",
+  },
+  titleBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    itemAlign: 'center',
   },
   title: {
     padding: "20px",
@@ -61,26 +92,26 @@ const styles = {
     textAlign: "left",
     latterSpacing: "0px",
   },
-  title_sub: {
-    padding: "10px",
-    fontSize: "20px",
-    fontWeight: "600",
+  contentWrapper: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gridTemplateRows: 'minmax(250px, auto)'
   },
   content: {
     paddingLeft: "30px",
     fontWeight: "600",
     latterSpacing: "0px",
   },
-  button: {
-    display: "flex",
-    justifyContent: "end",
-    alignItems: "end",
-    padding: "16px"
+  list:{
+    listStyle: 'inside',
+    margin: '10px',
   },
-  button_sub: {
-    width: "15%",
-    height: "18%",
-    borderRadius: "6px",
+  button: {
+    display: "inline-block",
+    margin: "10px",
+    width: "3.5rem",
+    height: "3.5rem",
+    borderRadius: "50%",
     fontSize: "14px",
     fontWeight: "600",
     latterSpacing: "0px",

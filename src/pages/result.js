@@ -66,6 +66,7 @@ function Result() {
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr;
+  grid-gap: 25px;
   padding: 40px 100px;
 `;
 
