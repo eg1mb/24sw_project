@@ -58,6 +58,42 @@ def score_speed(speed):
     else:
         return 100
 
+# 목소리 속도에 따른 코멘트 생성
+def generate_comment_for_speed(speed_average_score):
+    """점수에 따라 코멘트를 생성"""
+    if speed_average_score >= 88:
+        return "매우 좋음"
+    elif 76 <= speed_average_score < 88:
+        return "좋음"
+    elif 64 <= speed_average_score < 76:
+        return "보통"
+    elif 52 <= speed_average_score < 64:
+        return "약간 나쁨"
+    else:
+        return "개선 필요" 
+
+# 목소리 속도에 따른 피드백 생성
+def generate_feedback_for_speed(speech_rate, speed_average_score):
+    """점수에 따라 피드백을 생성"""
+    if speed_average_score >= 88:
+        return "발화 속도가 매우 적절하고 자연스럽습니다. 지금처럼 계속 유지하세요!"
+    elif 76 <= speed_average_score < 88:
+        if speed>150:
+            return "발화 속도가 적절한 편입니다. 다만, 중요한 부분에서는 조금 더 천천히 말해도 좋겠습니다."
+        else:
+            return "발화 속도가 적절한 편입니다. 다만, 중요하지 않은 부분에서는 조금 더 빨리 말해도 좋겠습니다.
+    elif 64 <= speed_average_score < 76:
+        if speed>150:
+            return "발화 속도가 약간 빠릅니다. 중요한 정보를 명확히 전달하기 위해 속도를 줄이시길 바랍니다."
+        else:
+            return "발화 속도가 약간 느립니다. 중요한 정보를 명확히 전달하고 불필요한 내용에선 속도를 높이시길 바랍니다.
+    elif 52 <= speed_average_score < 64:
+        if speed>150:
+            return "발화 속도가 너무 빠릅니다. 청중이 이해하기 쉽도록 속도를 개선해보세요."
+        else:
+            return "발화 속도가 너무 느립니다. 청중이 집중할 수 있도록 속도를 개선해보세요."
+    else:
+        return "발화 속도가 매우 부적절합니다. 연습을 통해 청중에게 더 쉽게 이해될 수 있도록 속도를 맞추는 것을 추천합니다."
 
 def analyze_speech(input_file , file_path):
 
@@ -81,7 +117,6 @@ def analyze_speech(input_file , file_path):
 
     # 문장 단위로 나누기
     sentences = sent_tokenize(text)
-    print("Sentences:", sentences)
 
     # 각 문장에 대해 발화 속도 측정 및 점수화
     sentence_durations = total_duration / len(sentences)  # 평균 문장 길이로 가정
@@ -95,11 +130,16 @@ def analyze_speech(input_file , file_path):
         
 
     # 최종 평균 점수
-    average_score = round(sum(scores) / len(scores))  # 정수로 변환
-    decibel_count = main2(file_path) 
+    speed_average_score = round(sum(scores) / len(scores))  # 정수로 변환
+    decibel_count = main2(file_path)
+    decibel_comment = generate_comment_for_volume(decibel_count)
+    decibel_feedback = generate_feedback_for_volume(decibel_count)
     
     ####json 이런 형식으로 보내기! ({" " : [ ]} <= 이런 형식으로 변수 : 리스트 만들어도 가능  ) 
-    print(json.dumps({"average_score" : average_score , "decibel_count" : decibel_count  },  ensure_ascii=False) ), 
+    print(json.dumps({"average_score" : speed_average_score , 
+                      "decibel_count" : decibel_count, 
+                      "decibel_comment" : decibel_comment, 
+                      "decibel_feedback" : decibel_feedback },  ensure_ascii=False) ), 
 
 ## 2 목소리 크기 출력  
 def analyze_file(file_path, interval=0.1):
@@ -129,6 +169,36 @@ def calculate_confidence(decibel_values):
 
     return average_decibel, threshold, confidence_judgement
 
+# 목소리 크기에 따른 코멘트 생성
+"""만약 오류가 발생한다면 true_percentage부분을 decibel_count로 바꿔서 해주시길 바랍니다."""
+def generate_comment_for_volume(true_percentage):
+    """점수에 따라 코멘트를 생성"""
+    if true_percentage >= 85:
+        return "매우 좋음"
+    elif 70 <= true_percentage < 85:
+        return "좋음"
+    elif 55 <= true_percentage < 70:
+        return "보통"
+    elif 40 <= true_percentage <55:
+        return "약간 나쁨"
+    else:
+        return "개선 필요" 
+
+# 목소리 크기에 따른 피드백 생성
+"""만약 오류가 발생한다면 true_percentage부분을 decibel_count로 바꿔서 해주시길 바랍니다."""
+def generate_feedback_for_volume(true_percentage):
+    """점수에 따라 피드백을 생성"""
+    if true_percentage >= 85:
+        return "목소리가 명확하고 안정적입니다. 현재 크기를 유지하세요."
+    elif 70 <= true_percentage < 85:
+        return "대체로 안정적인 목소리 크기입니다. 약간 더 명확히 하면 좋겠습니다."
+    elif 55 <= true_percentage < 70:
+        return "목소리가 약간 불안정합니다. 조금 더 크고 명확하게 말해주세요."
+    elif 40 <= true_percentage <55:
+        return "목소리가 불안정합니다. 조금 더 자신감을 가지시고 명확하게 말해주세요."
+    else:
+        return "목소리가 너무 작거나 불안정합니다. 연습을 통해 더 크게 말하는 것을 추천합니다."
+
 def main2 (file_path ) : 
     # 파일 경로를 지정하여 데시벨 분석 수행
 
@@ -147,7 +217,9 @@ def main2 (file_path ) :
 
     # %로 나타내기
     true_percentage = 100 - (true_count / len(confidence_judgement) * 100)
-    return true_percentage 
+
+    #점수 기반 코멘트와 피드백 생성
+    return true_percentage
 
     
 
