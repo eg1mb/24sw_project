@@ -73,7 +73,7 @@ def generate_comment_for_speed(speed_average_score):
         return "개선 필요" 
 
 # 목소리 속도에 따른 피드백 생성
-def generate_feedback_for_speed(speech_rate, speed_average_score):
+def generate_feedback_for_speed(speed, speed_average_score):
     """점수에 따라 피드백을 생성"""
     if speed_average_score >= 88:
         return "발화 속도가 매우 적절하고 자연스럽습니다. 지금처럼 계속 유지하세요!"
@@ -131,15 +131,19 @@ def analyze_speech(input_file , file_path):
 
     # 최종 평균 점수
     speed_average_score = round(sum(scores) / len(scores))  # 정수로 변환
+    speed_comment = generate_comment_for_speed(speed_average_score)
+    speed_feedback = generate_feedback_for_speed(speed, speed_average_score):
     decibel_count = main2(file_path)
     decibel_comment = generate_comment_for_volume(decibel_count)
     decibel_feedback = generate_feedback_for_volume(decibel_count)
     
     ####json 이런 형식으로 보내기! ({" " : [ ]} <= 이런 형식으로 변수 : 리스트 만들어도 가능  ) 
-    print(json.dumps({"average_score" : speed_average_score , 
+    print(json.dumps({"speed_average_score" : speed_average_score ,
+                      "speed_comment" : speed_comment,
+                      "speed_feedback" : speed_feedback,
                       "decibel_count" : decibel_count, 
                       "decibel_comment" : decibel_comment, 
-                      "decibel_feedback" : decibel_feedback },  ensure_ascii=False) ), 
+                      "decibel_feedback" : decibel_feedback},  ensure_ascii=False) ), 
 
 ## 2 목소리 크기 출력  
 def analyze_file(file_path, interval=0.1):
