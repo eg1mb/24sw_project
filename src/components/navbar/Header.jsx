@@ -7,10 +7,18 @@ const Header = () => {
     <header style={styles.header}>
       <h1 style={styles.logo}>sgoi</h1>
       <nav style={styles.nav}>
-        <li style={styles.navButton}><Link href="/">Home</Link></li>
-        <li style={styles.navButton}><Link href="/test">Test</Link></li>
-        <li style={styles.navButton}><Link href="/result">Result</Link></li>
-        <li style={styles.navButton}><Link href="/profile">Profile</Link></li>
+        <li style={{ ...styles.navButton, listStyle: 'none' }}>
+          <Link href="/">Home</Link>
+        </li>
+        <li style={{ ...styles.navButton, listStyle: 'none' }}>
+          <Link href="/test">Test</Link>
+        </li>
+        <li style={{ ...styles.navButton, listStyle: 'none' }}>
+          <Link href="/result">Result</Link>
+        </li>
+        <li style={{ ...styles.navButton, listStyle: 'none' }}>
+          <Link href="/profile">Profile</Link>
+        </li>
       </nav>
       <input type="text" placeholder="search" style={styles.searchInput} />
     </header>

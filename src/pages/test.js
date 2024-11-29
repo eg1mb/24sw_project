@@ -95,7 +95,7 @@ export default function Test() {
         <>
           <div style={styles.scriptBox}>
             <h2 style={styles.scriptText}>script</h2>
-            <p style={styles.hiddenText}>●●●●●●</p>
+            <p style={styles.hiddenText}>스크립트 표시</p>
           </div>
 
           <div style={styles.recordBox}>
