@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ScoreCardcomplete from '../components/ScoreCard/ScoreCardcomplete';
 import Chartbarcomplete from '../components/chartbarCard/Chartbarcomplete';
 import Overallcomplete from '../components/overallCard/OverallCardcomplete';
 import WeakStrongCard from '../components/Weak_Strong_Card/Weak_Strong';
+import ScrollButtons from '../components/buttons/scrollButtons';
 import styled from 'styled-components';
 
 /*
@@ -35,8 +36,8 @@ const DummyScore = {
   grammar_score4 : 60,
   strength : ['강점1', '강점2', '강점3'],
   weakness : ['약점1', '약점2', '약점3'],
-  speed : ['속도1', '속도2', '속도3'],
-  decibel : ['음성1', '음성2', '음성3'],
+  speed : 24,
+  decibel : 56,
   clearity : ['명료도1', '명료도2', '명료도3']
 }
 
@@ -47,16 +48,21 @@ const DummyUser = {
 // 1) components 폴더에 css한 카드 위치
 // 2) import해서 <Chartbarcomplete/>처럼 해당된 위치에 배치 
 function Result() {
+
+  const overallRef = useRef(null);
+  const grammarRef = useRef(null);
+
   return (
    <>
-      <Container>
+    <Container>
       <ScoreCardcomplete Score={DummyScore} User={DummyUser}/>
       <WeakStrongCard Score={DummyScore} User={DummyUser}/>
     </Container>
-    <Container>
+    <ScrollButtons overallRef={overallRef} grammarRef={grammarRef}/>
+    <Container ref={overallRef}>
       <Chartbarcomplete Score={DummyScore}/>
     </Container>
-    <Container>
+    <Container ref={grammarRef}>
       <Overallcomplete Score={DummyScore}/>
     </Container>
    </>
