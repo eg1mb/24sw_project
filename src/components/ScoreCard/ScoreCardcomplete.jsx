@@ -1,18 +1,41 @@
-import React , {useState} from 'react';
 import ScoreCard from './ScoreCard';
-import Modal from "../Modal"
 
-function ScoreCardcomplete() {
-  const [isModalOpen , setIsModalOpen] = useState(false)
-  const [content , setcontent ] = useState("내용입니다")
+function ScoreCardcomplete({Score}) {
 
-  const openModal = () => setIsModalOpen(true)
-  const closeModal = () => setIsModalOpen(false)
   return (
       <div>
-        <div onClick ={openModal}>
-        <ScoreCard score={75} name="김민수" />
-        <Modal isOpen={isModalOpen} onClose ={closeModal} contents= {content}/></div>
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          maxWidth: '400px',
+          maxHeight: '400px',
+        }}>
+          <div>
+            <p style={{
+              fontFamily: 'Arial, sans-serif',
+              fontWeight: 'bold',
+              fontSize: '60px',
+              color: '#2d5ace',
+              lineHeight: '1.2'
+            }}>My Results</p>
+            <p style={{
+              fontFamily: 'Arial, sans-serif',
+              fontWeight: '300',
+              fontSize: '60px',
+              color: '#2d5ace',
+              lineHeight: '1.2'
+            }}>Report</p>
+          </div>
+          <ScoreCard score={Score.total_score}
+            style={{
+              position: 'relative',
+              top: '25%',
+              left: '100%',
+              transform: 'translate(-50%, -50%)'
+            }}
+          />
+        </div>
       </div>
     
   );
