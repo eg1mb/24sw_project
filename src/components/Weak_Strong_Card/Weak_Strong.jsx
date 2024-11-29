@@ -1,14 +1,12 @@
 import { useState } from "react"
 import WeakStrongModal from "./Weak_Strong_Modal"
 
-const WeakStrong = ({Score, User}) => {
+const WeakStrong = ({weak_strong, User}) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const clickModal = () => {
     setIsOpen(!isOpen)
   }
-
-  // 장점 이모지 ;
 
   return (
     <div>
@@ -32,7 +30,7 @@ const WeakStrong = ({Score, User}) => {
             </div>
             <div style={styles.content}>
               <ul>
-                {Score.strength.map((a, i) => {
+                {weak_strong.strength.map((a, i) => {
                   if (i < 3) {
                     return (
                       <li style={styles.list} key={i}>{a}</li>
@@ -49,7 +47,7 @@ const WeakStrong = ({Score, User}) => {
             </div>
             <div style={styles.content}>
               <ul>
-                {Score.weakness.map((a, i) => {
+                {weak_strong.weakness.map((a, i) => {
                   if (i < 3) {
                     return (
                       <li style={styles.list} key={i}>{a}</li>
@@ -61,7 +59,7 @@ const WeakStrong = ({Score, User}) => {
             </div>
           </div>
         </div>
-        {isOpen && <WeakStrongModal clickModal={clickModal} isOpen={isOpen} setIsOpen={setIsOpen} weaknesses={Score.weakness}/>}
+        {isOpen && <WeakStrongModal clickModal={clickModal} isOpen={isOpen} setIsOpen={setIsOpen} WeakStrong={weak_strong}/>}
       </div>
     </div>
   )

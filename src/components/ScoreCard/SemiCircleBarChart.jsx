@@ -25,33 +25,24 @@ const ArcContainer = styled.div`
 
 const Score = styled.div`
   position: absolute;
-  top: 60%;
+  width: 100%;
+  height: 100%;
+  top: 100%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 40px; // 텍스트 크기 조정
+  font-size: 50px; // 텍스트 크기 조정
+  font-weight: bold;
   color: #2d5ace;
   font-family: Arial, sans-serif;
   text-align: center;
 `;
-
-const Description = styled.div`
-  position: absolute;
-  top: 95%;
-  left: 44%;
-  transform: translate(-50%, -50%);
-  font-size: 14px; // 텍스트 크기 조정
-  color: #2d5ace;
-  font-family: Arial, sans-serif;
-  text-align: center;
-
-`
 
 export default function SemiCircleBarChart({score}) {
   const Data = {
     labels: [],
     datasets: [
       {
-        data: [score, 100 - score],
+        data: [score, 700 - score],
         backgroundColor: ["#2d5ace", "#ffffff"],
         borderColor: ["#2d5ace", "#ffffff"],
         circumference: 180, // 반원 도넛

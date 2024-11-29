@@ -1,4 +1,6 @@
-const WeakStrongModal = ({ clickModal, isOpen, setIsOpen, weaknesses }) => {
+import { revalidatePath } from "next/cache";
+
+const WeakStrongModal = ({ clickModal, isOpen, setIsOpen, WeakStrong }) => {
   if (!isOpen) return null;
 
   return (
@@ -7,12 +9,24 @@ const WeakStrongModal = ({ clickModal, isOpen, setIsOpen, weaknesses }) => {
         <div style={styles.diaBack}></div>
         <div style={styles.main}>
           <div style={styles.diaPanel}>
-            <div style={styles.title}>&#x1F44E; 나의 약점</div>
-            <ul style={styles.content}>
-              {weaknesses.map((a, i) => (
-                <li className="m-1" key={i}>{a}</li>
-              ))}
-            </ul>
+            <div style={styles.contentWrapper}>
+              <div>
+                <div style={styles.title}>&#x1F44D; 나의 강점</div>
+                <ul style={styles.content}>
+                  {WeakStrong.strength.map((a, i) => (
+                    <li className="m-1" key={i} style={styles.list}>{a}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <div style={styles.title}>&#x1F44E; 나의 약점</div>
+                <ul style={styles.content}>
+                  {WeakStrong.weakness.map((a, i) => (
+                    <li className="m-1" key={i} style={styles.list}>{a}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
             <div style={styles.button}>
               <button
                 type="button"
@@ -51,9 +65,10 @@ const styles = {
     padding: "20px",
   },
   diaPanel: {
-    width: "auto",
-    height: "auto",
-    maxWidth: "700px",
+    position: "relative",
+    width: "100%",
+    height: "100%",
+    maxWidth: "1000px",
     maxHeight: "400px",
     borderRadius: "10px",
     backgroundColor: "#1B4495",
@@ -64,13 +79,26 @@ const styles = {
     fontWeight: "bold",
     color: "white",
   },
+  contentWrapper: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gridGap: "25px",
+  },
   content: {
     fontWeight: "600",
     latterSpacing: "0px",
     color: "white",
     paddingLeft:"10px",
   },
+  list:{
+    listStyle: 'inside',
+    margin: '10px',
+  },
   button: {
+    position: "relative",
+    top: "55%",
+    left: "55%",
+    transform: "translate(-50%, -50%)",
     display: "flex",
     justifyContent: "end",
     alignItems: "end",

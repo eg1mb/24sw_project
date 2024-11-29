@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ScoreCardcomplete from '../components/ScoreCard/ScoreCardcomplete';
-import Chartbarcomplete from '../components/chartbarCard/Chartbarcomplete';
-import Overallcomplete from '../components/overallCard/OverallCardcomplete';
 import WeakStrongCard from '../components/Weak_Strong_Card/Weak_Strong';
 import ScrollButtons from '../components/buttons/scrollButtons';
+import OverallCardcomplete from '@/components/overallCard/OverallCardcomplete';
 import styled from 'styled-components';
 
 /*
@@ -26,19 +25,30 @@ const UserScore = () => {
 */
 
 const DummyScore = {
-  total_score : 75,
-  speed_score : 80,
-  decibel_score : 70,
-  clearity_score : 85,
-  grammar_score1 : 90,
-  grammar_score2 : 80,
-  grammar_score3 : 70,
-  grammar_score4 : 60,
-  strength : ['강점1', '강점2', '강점3'],
-  weakness : ['약점1', '약점2', '약점3'],
-  speed : 24,
-  decibel : 56,
-  clearity : ['명료도1', '명료도2', '명료도3']
+  total_score : 650,
+  weak_strong : {
+    weakness : ['약점1', '약점2', '약점3'],
+    strength : ['강점1', '강점2', '강점3'],
+  },
+  speed : 100,
+  volume : 100,
+  grammar : {
+    content: [100, 'level', 'comment'],
+    politeness: [100, 'level', 'comment'],
+    voca : [100, 'level', 'comment'],
+    sent_completion : [100, 'level', 'comment'],
+  },
+  details : {
+    text: "...",
+    Clarity : { hmm : ["errors" , "errors"] , reps : ["errors" , "errors"] , blur : ["errors" , "errors"] } ,
+    Contents : [{"origin": "", "correct": "", "reason": ""}, {"origin": "", "correct": "", "reason": ""} ] ,
+    Grammar : {
+      contents : [{original: "음…" , corrected : " " }, {original: "음…" , corrected : " " } ] , 
+      politeness : [{original : "error" , corrected : "corrected" }, {original : "error" , corrected : "corrected" }],
+      voca: [{original : "error" , corrected : "corrected" }, {original : "error" , corrected : "corrected" }],
+      sent_complition: [{original : "error" , corrected : "corrected" }, {original : "error" , corrected : "corrected" }]
+    }
+  }
 }
 
 const DummyUser = {
@@ -50,20 +60,17 @@ const DummyUser = {
 function Result() {
 
   const overallRef = useRef(null);
-  const grammarRef = useRef(null);
+  const detailRef = useRef(null);
 
   return (
    <>
     <Container>
       <ScoreCardcomplete Score={DummyScore} User={DummyUser}/>
-      <WeakStrongCard Score={DummyScore} User={DummyUser}/>
+      <WeakStrongCard weak_strong={DummyScore.weak_strong} User={DummyUser}/>
     </Container>
-    <ScrollButtons overallRef={overallRef} grammarRef={grammarRef}/>
-    <Container ref={overallRef}>
-      <Chartbarcomplete Score={DummyScore}/>
-    </Container>
-    <Container ref={grammarRef}>
-      <Overallcomplete Score={DummyScore}/>
+    <ScrollButtons overallRef={overallRef} detailRef={detailRef}/>
+    <Container ref={detailRef}>
+      
     </Container>
    </>
   );
@@ -71,8 +78,8 @@ function Result() {
 // grid 형태로 만들어놓은 상태 열을 2개로 만들어야 함 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  grid-gap: 25px;
+  grid-template-columns: 1fr 2.5fr;
+  grid-gap: 70px;
   padding: 40px 100px;
 `;
 
