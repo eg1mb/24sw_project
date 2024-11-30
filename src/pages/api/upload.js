@@ -33,7 +33,7 @@ const runMiddleware = (req, res, fn) => {
 // 목소리 속도 
 const runPythonScript = async (file) => {
   const z = Math.floor(Math.random() * 1000) + 1
-  const pythonPath = 'C:\\Users\\khy12\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
+  const pythonPath = 'python';
   const pythonfilePath = path.join(process.cwd(), 'pythonfiles', 'Python_speed.py');
   const inputPath = path.join(process.cwd(), 'wav');
   const outputPath2 = path.join(inputPath, `output_${z}.wav`);
@@ -76,9 +76,9 @@ const runPythonScript = async (file) => {
     });
   });
 };
-// chat gpt api 
+// grammar correction & STT
 const runPythonScript2 = async (file) => {
-  const pythonPath = 'C:\\Users\\khy12\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
+  const pythonPath = 'python';
   const pythonfilePath = path.join(process.cwd(), 'pythonfiles', 'STT_grammar.py');
 
   return new Promise((resolve, reject) => {
@@ -166,8 +166,8 @@ export default async (req, res) => {
       const pythonResult2 = await runPythonScript2(file)
 
       const jsonResponse = {
-        average_score : pythonResult.average_score,
-        decibel_count : pythonResult.decibel_count,
+        average_score : pythonResult.decibel_count,
+        decibel_count : pythonResult.decibel_comment,
         text : pythonResult2.text,
         strength : pythonResult2.grammar_correction.strengths,
         weakness : pythonResult2.grammar_correction.weaknesses,
