@@ -176,6 +176,7 @@ export default async (req, res) => {
 
 
       }
+      // 원문을 위해서 그냥 보내도 됨 
       
       console.log("json response" , jsonResponse)
 

@@ -70,10 +70,14 @@ export default function Test() {
 
       if (response.ok) {
         const jsonResponse = await response.json();
+        // json.Parse()를 이용해 객체 형태로 바로 바꿀 수 있음 
         const { average_score, decibel_count, text, strength, weakness, feedback, total_score } = jsonResponse;
         setFeedback({ average_score, decibel_count, text, strength, weakness, feedback, total_score });
+        console.log(jsonResponse ,  "json결과")
+        // localStorage형태로 저장 
+        localStorage.setItem('user', JSON.stringify(jsonResponse));
         
-        // 데이터 로드 완료 시 이동
+        // 데이터 로드 완료 시 이동 (아직 미완)
         setLoading(false); 
       } else {
         console.error("Upload failed:", response.statusText);
@@ -95,7 +99,7 @@ export default function Test() {
         <>
           <div style={styles.scriptBox}>
             <h2 style={styles.scriptText}>script</h2>
-            <p style={styles.hiddenText}>스크립트 표시</p>
+            <p style={styles.hiddenText}>어려운 문제를 해결했던 경험을 말씀해주세요.</p>
           </div>
 
           <div style={styles.recordBox}>
@@ -113,24 +117,7 @@ export default function Test() {
             </button>
           </div>
 
-          {audioURL && (
-            <div>
-              <audio controls src={audioURL} style={{ marginTop: '20px' }}>
-                Your browser does not support the audio element.
-              </audio>
-              {feedback && (
-                <div style={{ marginTop: '20px', color: '#333' }}>
-                  <p><strong>원문 :</strong>{feedback.text}</p>
-                  <p><strong>총점 :</strong>{feedback.total_score}</p>
-                  <p><strong>피드백:</strong>{feedback.feedback}</p>
-                  <p><strong>말소리 속도 :</strong> {feedback.average_score}</p>
-                  <p><strong>말소리 크기 :</strong>{Math.round(feedback.decibel_count * 100) / 100}</p>
-                  <p><strong>강점 :</strong>{feedback.strength}</p>
-                  <p><strong>약점 :</strong>{feedback.weakness}</p>
-                </div>
-              )}
-            </div>
-          )}
+          
         </>
       )}
     </div>

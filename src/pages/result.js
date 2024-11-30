@@ -5,6 +5,21 @@ import ScrollButtons from '../components/buttons/scrollButtons';
 import OverallCardcomplete from '@/components/overallCard/OverallCardcomplete';
 import styled from 'styled-components';
 
+/* local Storage로 test.js에서 저장한 데이터를 받아오기 
+useEffect(() => {
+  const storedUser = localStorage.getItem('user');
+  if (storedUser) {
+  const Data = JSON.parse(storedUser);
+  setData(Data)
+  setsebuData(세부부분에 해당하는 것 정리 - 나중에 props로 사용 예정)
+  console.log(userObject.name);  // 사용자 정보 출력
+} else {
+  console.log('사용자 정보가 없습니다.');
+}
+
+  
+  } , [])
+
 /*
 upload.js 에서 데이터를 받아오는 코드 
 const UserScore = () => {

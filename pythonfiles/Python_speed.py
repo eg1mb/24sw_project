@@ -81,12 +81,12 @@ def generate_feedback_for_speed(speed, speed_average_score):
         if speed>150:
             return "발화 속도가 적절한 편입니다. 다만, 중요한 부분에서는 조금 더 천천히 말해도 좋겠습니다."
         else:
-            return "발화 속도가 적절한 편입니다. 다만, 중요하지 않은 부분에서는 조금 더 빨리 말해도 좋겠습니다.
+            return "발화 속도가 적절한 편입니다. 다만, 중요하지 않은 부분에서는 조금 더 빨리 말해도 좋겠습니다."
     elif 64 <= speed_average_score < 76:
         if speed>150:
             return "발화 속도가 약간 빠릅니다. 중요한 정보를 명확히 전달하기 위해 속도를 줄이시길 바랍니다."
         else:
-            return "발화 속도가 약간 느립니다. 중요한 정보를 명확히 전달하고 불필요한 내용에선 속도를 높이시길 바랍니다.
+            return "발화 속도가 약간 느립니다. 중요한 정보를 명확히 전달하고 불필요한 내용에선 속도를 높이시길 바랍니다."
     elif 52 <= speed_average_score < 64:
         if speed>150:
             return "발화 속도가 너무 빠릅니다. 청중이 이해하기 쉽도록 속도를 개선해보세요."
@@ -132,7 +132,7 @@ def analyze_speech(input_file , file_path):
     # 최종 평균 점수
     speed_average_score = round(sum(scores) / len(scores))  # 정수로 변환
     speed_comment = generate_comment_for_speed(speed_average_score)
-    speed_feedback = generate_feedback_for_speed(speed, speed_average_score):
+    speed_feedback = generate_feedback_for_speed(speed, speed_average_score)
     decibel_count = main2(file_path)
     decibel_comment = generate_comment_for_volume(decibel_count)
     decibel_feedback = generate_feedback_for_volume(decibel_count)
