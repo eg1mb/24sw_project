@@ -138,12 +138,6 @@ def analyze_speech(input_file , file_path):
     decibel_feedback = generate_feedback_for_volume(decibel_count)
     
     ####json 이런 형식으로 보내기! ({" " : [ ]} <= 이런 형식으로 변수 : 리스트 만들어도 가능  ) 
-    print(json.dumps({"speed_average_score" : speed_average_score ,
-                      "speed_comment" : speed_comment,
-                      "speed_feedback" : speed_feedback,
-                      "decibel_count" : decibel_count, 
-                      "decibel_comment" : decibel_comment, 
-                      "decibel_feedback" : decibel_feedback},  ensure_ascii=False) ), 
 
 ## 2 목소리 크기 출력  
 def analyze_file(file_path, interval=0.1):
