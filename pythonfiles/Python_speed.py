@@ -130,7 +130,7 @@ def analyze_speech(input_file , file_path):
         
 
     # 최종 평균 점수
-    speed_average_score = round(sum(scores) / len(scores))  # 정수로 변환
+    speed_score = round(sum(scores) / len(scores))  # 정수로 변환
     speed_comment = generate_comment_for_speed(speed_average_score)
     speed_feedback = generate_feedback_for_speed(speed, speed_average_score)
     decibel_count = main2(file_path)
@@ -141,7 +141,7 @@ def analyze_speech(input_file , file_path):
      # JSON 데이터 생성
     result = {
         "speed_analysis": {
-            "average_score": speed_average_score,
+            "speed_score": speed_score,
             "comment": speed_comment,
             "feedback": speed_feedback
         },
