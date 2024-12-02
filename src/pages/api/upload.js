@@ -166,8 +166,12 @@ export default async (req, res) => {
       const pythonResult2 = await runPythonScript2(file)
 
       const jsonResponse = {
-        average_score : pythonResult.decibel_count,
-        decibel_count : pythonResult.decibel_comment,
+        speed_score  : pythonResult.speed_analysis.speed_score,
+        speed_comment : pythonResult.speed_analysis.speed_comment,
+        speed_feedback : pythonResult.speed_analysis.speed_feedback,
+        volume_score : pythonResult.volume_analysis.decibel_count,
+        volume_comment : pythonResult.volume_analysis.decibel_comment,
+        volume_feedback : pythonResult.volume_analysis.decibel_feedback,
         text : pythonResult2.text,
         strength : pythonResult2.grammar_correction.strengths,
         weakness : pythonResult2.grammar_correction.weaknesses,
