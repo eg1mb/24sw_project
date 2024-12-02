@@ -132,7 +132,7 @@ def analyze_speech(input_file , file_path):
     # 최종 평균 점수
     speed_score = round(sum(scores) / len(scores))  # 정수로 변환
     speed_comment = generate_comment_for_speed(speed_score)
-    speed_feedback = generate_feedback_for_speed(speed_rate, speed_score)
+    speed_feedback = generate_feedback_for_speed(speech_rate, speed_score)
     decibel_count = main2(file_path)
     decibel_comment = generate_comment_for_volume(decibel_count)
     decibel_feedback = generate_feedback_for_volume(decibel_count)
