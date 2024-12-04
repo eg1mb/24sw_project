@@ -5,20 +5,12 @@ import ScrollButtons from '../components/buttons/scrollButtons';
 import OverallCardcomplete from '@/components/overallCard/OverallCardcomplete';
 import styled from 'styled-components';
 
-/* local Storage로 test.js에서 저장한 데이터를 받아오기 
-useEffect(() => {
-  const storedUser = localStorage.getItem('user');
-  if (storedUser) {
-  const Data = JSON.parse(storedUser);
-  setData(Data)
-  setsebuData(세부부분에 해당하는 것 정리 - 나중에 props로 사용 예정)
-  console.log(userObject.name);  // 사용자 정보 출력
-} else {
-  console.log('사용자 정보가 없습니다.');
-}
+/* local Storage로 test.js에서 저장한 데이터를 받아오기 */
+
+
 
   
-  } , [])
+ 
 
 /*
 upload.js 에서 데이터를 받아오는 코드 
@@ -70,12 +62,26 @@ const DummyUser = {
   name : '김민수',
 }
 
+
 // 1) components 폴더에 css한 카드 위치
 // 2) import해서 <Chartbarcomplete/>처럼 해당된 위치에 배치 
 function Result() {
 
   const overallRef = useRef(null);
   const detailRef = useRef(null);
+
+/* local storage를 이용해 test.js의 값 가져오는 것 
+useEffect(() => {
+  // 클라이언트 사이드에서만 실행되도록 조건 추가
+  
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const Data = JSON.parse(storedUser);
+      console.log(Data); // useState에서 값 가져오기 
+    } else {
+      console.log('사용자 정보가 없습니다.');
+  }
+}, []);*/
 
   return (
    <>

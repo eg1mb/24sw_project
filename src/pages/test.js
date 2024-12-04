@@ -1,6 +1,8 @@
 // pages/test.js
 // test화면 
 import React, { useState, useRef } from 'react';
+// LocalStorage 
+import { useRouter } from "next/router";
 
 export default function Test() {
   const [recording, setRecording] = useState(false);
@@ -9,6 +11,8 @@ export default function Test() {
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const [feedback, setFeedback] = useState(null);
+
+  const router = useRouter();
 
   // 녹음 시작
   const startRecording = async () => {
@@ -47,6 +51,8 @@ export default function Test() {
     }
   };
 
+  
+
   // 오디오 업로드
   const uploadAudio = async (audioBlob) => {
     if (!audioBlob) return;
@@ -74,10 +80,10 @@ export default function Test() {
         const { average_score, decibel_count, text, strength, weakness, feedback, total_score } = jsonResponse;
         setFeedback({ average_score, decibel_count, text, strength, weakness, feedback, total_score });
         console.log(jsonResponse ,  "json결과")
-        // localStorage형태로 저장 
-        localStorage.setItem('user', JSON.stringify(jsonResponse));
+        // localStorage형태로 저장 & 데이터 로드 완료시 이동 
+        //localStorage.setItem('user', JSON.stringify(jsonResponse));
+        //router.push('/result');
         
-        // 데이터 로드 완료 시 이동 (아직 미완)
         setLoading(false); 
       } else {
         console.error("Upload failed:", response.statusText);

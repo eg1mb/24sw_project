@@ -4,7 +4,7 @@ const data = {
   details: {
     text: "음… 저는 이 프로젝트를 잘 했다고 생각해... 음... 그런데 음… 제가 제가 실수한 부분도 조금 있었던 것 같아요. \n 잘 넘어가게 되었습니다\ndfkdlfk;sdkf;dslkf;dskf;ldskf;dskf;ldksf;lkf;ldskf;ldskf;lsddjfsdfj;dslkf;ldskf;lsdkf;lsdk;lfk;dslkf;sdlkf;ldskf;ldskf;lsdkf;ldskf;ldkf;ldskf;lsdkfl;dskf;ldskfl;dskf;sldkf;lsdkf;lsdkfl;sdkf;lsdkf;ldskf;ldsfk;lsdkf;lsdfk;lsdkf;lsdkf;lsdkf;dlskf;lsdkf;lsdkf;ldskf;ldskfl;dskf;sldkfl;sdkf;sdlkfsdlfk;sdkfl;sdkf;ldskf;ldskf;lsdkf;lsdkf;lsdkf;lsdkf;ldskf;ldskf;lsdgjsd;lfjds;lkfl;dskfl;sdkfsd;lkf;sdlkfl;dskf;sdlkf;ldskf;lsdkf",
     Clarity: {
-      hmm: ["음…", "음..."],
+      hmm: ["음…", "음..."] ,
       reps: ["제가 제가"],
       blur: ["생각해..."],
     },
@@ -222,11 +222,14 @@ export default function sebucheck() {
           <div style={styles.rightBox}>
             {/* 진행률 바 */}
             <div style={styles.progressBar}>
+             
               <div style={{ ...styles.bar, ...styles.bar1, width: "50%" ,fontSize : 14 , fontWeight : "bold" }}
               onClick={handleClarityHighlight}
-              >발성</div>
+              >명확성</div>
+             
               <div style={{ ...styles.bar, ...styles.bar2, width: "50%" , fontSize : 14 , fontWeight : "bold" }}
               onClick={handleContentsHighlight}>내용</div>
+            
               <div style={{ ...styles.bar, ...styles.bar3, width: "50%" , fontSize : 14 , fontWeight : "bold" }}
               onClick ={handleGrammarsHighlight}
               >문법</div>
@@ -343,11 +346,11 @@ export default function sebucheck() {
       gap: "20px",
     },
     leftBox: {
-      flex: 2,
+      flex: 1,
       height: "400px",
       backgroundColor: "#E3E5E6", // 배경색 수정
       borderRadius: "10px",
-      boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+      
       textAlign: "center", // 텍스트 중앙 정렬
       display: "flex",
       justifyContent: "center",
@@ -366,12 +369,13 @@ export default function sebucheck() {
       flexDirection: "column",
       gap: "20px",// 배경색 수정
       borderRadius: "10px",
-      padding: "10px",
+      padding: "20px",
+      backgroundColor: "#f0f1f2", 
     },
     progressBar: {
       display: "flex",
       flexDirection: "row",
-      gap: "10px",
+      gap: "5px",
     },
     bar: {
       display: "flex",
@@ -379,9 +383,10 @@ export default function sebucheck() {
       justifyContent: "center",
       color: "white",
       fontSize: "14px",
-      borderRadius: "20px",
-      height: "40px",
-      padding: "0 10px",
+      borderRadius: "25px",
+      height: "50px",
+      padding: "0 5px",
+      marginTop: "10px",
     },
     bar1: {
       backgroundColor: "#4a90e2",
@@ -393,10 +398,10 @@ export default function sebucheck() {
       backgroundColor: "#8bc1ff",
     },
     analysisBox: {
-      height: "300px",
-      backgroundColor: "#D6D5D9", // 배경색 수정
+      height: "280px",
+      backgroundColor: "#E3E5E6", // 배경색 수정
       borderRadius: "10px",
-      boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
+      
       textAlign: "center", // 텍스트 중앙 정렬
       display: "flex",
       justifyContent: "center",
@@ -408,4 +413,3 @@ export default function sebucheck() {
       textAlign: "center", // 중앙 정렬
     },
   };
-  
