@@ -81,6 +81,7 @@ export default function Test() {
         setFeedback({ average_score, decibel_count, text, strength, weakness, feedback, total_score });
         console.log(jsonResponse ,  "json결과")
         // localStorage형태로 저장 & 데이터 로드 완료시 이동 
+        //localStorage.setItem('audio' , audioURL) audioUrl 받기 
         //localStorage.setItem('user', JSON.stringify(jsonResponse));
         //router.push('/result');
         

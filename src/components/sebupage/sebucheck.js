@@ -1,4 +1,5 @@
 import React, { useState , useEffect } from "react";
+import RadiusChart from "../RadiusChart/RadiusChart" ;
 
 const data = {
   details: {
@@ -18,21 +19,32 @@ const data = {
   },
 };
 
+const dataValues = [65, 59, 90, 81, 56, 70, 85];
 // useEffect 사용해서 수정 
 
+// props로 chartdata(모든 7개의 값들)과 totalData(미리 짜놓은 객체) , audioURL을 받음 
 
 export default function sebucheck() {
     const [highlightedText, setHighlightedText] = useState(null); // 초기 상태: 원문
-    const [totaldata , setTotaldata ] = useState(null);
+    const [totaldata , setTotaldata ] = useState(null); // 총 data.details 
+    const [chartdata , setChartdata ] = useState([])
     const [grammarErrors , setGrammerErr ] = useState("")
     const [flag , setFlag] = useState(false)
     const [flag2 , setFlag2] = useState(false)
-    const [flag3 , setFlag3] = useState(false) // audioURL 
+    const [flag3 , setFlag3] = useState(false) // audioURL
+    const [flag4 , setFlag4] = useState(false) // 총 평가 8개의 원형으로   
+
 
     useEffect(() => {
-      // 이곳에 원하는 작업을 작성
+      // 이곳에 props를 받기 
       setTotaldata(data)
       setHighlightedText(data.details.text)
+      setChartdata(dataValues)
+      //const storedURL = localStorage.getItem('audio'); audioUrl 받기 
+      
+
+
+
   
       
     }, []);  // 의존성 배열이 비어있으면 한 번만 실행
@@ -46,6 +58,7 @@ export default function sebucheck() {
         // flag 초기화
         setFlag(false);
         setFlag2(false);
+        setFlag4(false);
         setGrammerErr("");
         const { hmm, reps, blur } = totaldata.details.Clarity; // 명료함 데이터 가져오기
         const highlights = [...hmm, ...reps, ...blur];
@@ -78,6 +91,7 @@ export default function sebucheck() {
         resetToOriginalText(); // 원문 초기화
         setFlag2(false)
         setFlag3(false)
+        setFlag4(false)
         setGrammerErr("");
         const { contents, politeness, voca, sent_complition } = totaldata.details.Grammar;
     
@@ -150,6 +164,7 @@ export default function sebucheck() {
         resetToOriginalText(); // 원문 초기화
         setFlag(false);
         setFlag3(false)
+        setFlag4(false)
         setGrammerErr("");
       
         const conty = [...totaldata.details.Contents.map((item) => item.origin)];
@@ -203,6 +218,13 @@ export default function sebucheck() {
         setFlag2(true)
         
       }
+
+      const handleTotal = () => {
+        setFlag(false)
+        setFlag2(false)
+        setFlag3(false)
+        setFlag4(true)
+      }
       
     
     
@@ -233,6 +255,11 @@ export default function sebucheck() {
               <div style={{ ...styles.bar, ...styles.bar3, width: "50%" , fontSize : 14 , fontWeight : "bold" }}
               onClick ={handleGrammarsHighlight}
               >문법</div>
+
+            <div style={{ ...styles.bar, ...styles.bar3, width: "50%" , fontSize : 14 , fontWeight : "bold" }}
+              onClick ={handleTotal}
+              >전체 평가</div>
+
             </div>
             {/* 오른쪽 하단 박스 */}
             <div style={styles.analysisBox}>
@@ -313,9 +340,12 @@ export default function sebucheck() {
                 ))}
               </div>
             )}
-      {flag3 ? <div>audioURL 자리 </div> : <div> </div>}  
 
     </div>) : <></>}
+    {flag3 ? <div>audioURL 자리 </div> : <div> </div>}  
+    {flag4 ? (
+      <div><RadiusChart dataset = {chartdata} /></div>
+    ) : <div> </div> }
 
             </div>
           </div>
