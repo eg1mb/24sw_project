@@ -30,7 +30,7 @@ function ScoreCardcomplete({Score}) {
           <ScoreCard score={Score.total_score}
             style={{
               position: 'relative',
-              top: '25%',
+              top: '15%',
               left: '100%',
               transform: 'translate(-50%, -50%)'
             }}

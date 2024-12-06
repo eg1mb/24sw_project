@@ -1,32 +1,16 @@
 import React, { useState , useEffect } from "react";
 import RadiusChart from "../RadiusChart/RadiusChart" ;
 
-const data = {
-  details: {
-    text: "음… 저는 이 프로젝트를 잘 했다고 생각해... 음... 그런데 음… 제가 제가 실수한 부분도 조금 있었던 것 같아요. \n 잘 넘어가게 되었습니다\ndfkdlfk;sdkf;dslkf;dskf;ldskf;dskf;ldksf;lkf;ldskf;ldskf;lsddjfsdfj;dslkf;ldskf;lsdkf;lsdk;lfk;dslkf;sdlkf;ldskf;ldskf;lsdkf;ldskf;ldkf;ldskf;lsdkfl;dskf;ldskfl;dskf;sldkf;lsdkf;lsdkfl;sdkf;lsdkf;ldskf;ldsfk;lsdkf;lsdfk;lsdkf;lsdkf;lsdkf;dlskf;lsdkf;lsdkf;ldskf;ldskfl;dskf;sldkfl;sdkf;sdlkfsdlfk;sdkfl;sdkf;ldskf;ldskf;lsdkf;lsdkf;lsdkf;lsdkf;ldskf;ldskf;lsdgjsd;lfjds;lkfl;dskfl;sdkfsd;lkf;sdlkfl;dskf;sdlkf;ldskf;lsdkf",
-    Clarity: {
-      hmm: ["음…", "음..."] ,
-      reps: ["제가 제가"],
-      blur: ["생각해..."],
-    },
-    Contents : [{origin: "이 프로젝트를", correct: "프로젝트", reason: ""}, {origin: "실수한 부분도", correct: "", reason: ""} ],
-    Grammar: {
-      contents: [{ original: "제가 실수한", corrected: "내가 실수한" }, { original: "안녕", corrected: "" }],
-      politeness: [{ original: "부분도", corrected: "" }, { original: "조금", corrected: "" }],
-      voca: [{ original: "ab", corrected: " " }, { original: "ab", corrected: "" }],
-      sent_complition: [{ original: "add", corrected: "" }, { original: "ad", corrected: "" }],
-    },
-  },
-};
+
 
 const dataValues = [65, 59, 90, 81, 56, 70, 85];
 // useEffect 사용해서 수정 
 
 // props로 chartdata(모든 7개의 값들)과 totalData(미리 짜놓은 객체) , audioURL을 받음 
 
-export default function sebucheck() {
-    const [highlightedText, setHighlightedText] = useState(null); // 초기 상태: 원문
-    const [totaldata , setTotaldata ] = useState(null); // 총 data.details 
+export default function sebucheck({Score}) {
+    const [highlightedText, setHighlightedText] = useState(Score.text); // 초기 상태: 원문
+    const [totaldata , setTotaldata ] = useState({details : Score}); // 총 data.details 
     const [chartdata , setChartdata ] = useState([])
     const [grammarErrors , setGrammerErr ] = useState("")
     const [flag , setFlag] = useState(false)
@@ -37,10 +21,12 @@ export default function sebucheck() {
 
     useEffect(() => {
       // 이곳에 props를 받기 
-      setTotaldata(data)
-      setHighlightedText(data.details.text)
+      console.log(Score )
+  
+      
       setChartdata(dataValues)
       //const storedURL = localStorage.getItem('audio'); audioUrl 받기 
+
       
 
 
@@ -102,7 +88,7 @@ export default function sebucheck() {
           ...sent_complition.map((item) => item.original),
         ];
     
-        const sentences = data.details.text.split("\n"); // 문장 단위로 나누기
+        const sentences = totaldata.details.text.split("\n"); // 문장 단위로 나누기
         const updatedText = sentences.map((sentence, index) => {
           let parts = [sentence]; // 초기 문장은 한 덩어리로 시작
       
@@ -170,7 +156,7 @@ export default function sebucheck() {
         const conty = [...totaldata.details.Contents.map((item) => item.origin)];
         console.log("conty", conty);
       
-        const sentences = data.details.text.split("\n"); // 문장 단위로 나누기
+        const sentences = totaldata.details.text.split("\n"); // 문장 단위로 나누기
       
         const updatedText = sentences.map((sentence, index) => {
           let parts = [sentence]; // 초기 문장은 한 덩어리로 시작

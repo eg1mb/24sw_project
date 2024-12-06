@@ -1,5 +1,6 @@
 import { Radar } from "react-chartjs-2";
 
+
 const RadiusChart = ({ dataset }) => {
   const COLOR = {
     ORANGE_1: 'rgba(255, 108, 61, 1)',
@@ -20,7 +21,7 @@ const RadiusChart = ({ dataset }) => {
     datasets: [
       {
         data: dataset, // 배열로 전달된 값
-        backgroundColor: "rgba(59, 86, 195, 0.2)", // 반투명 배경 색
+        backgroundColor: "rgba(59, 86, 195, 0.8)", // 반투명 배경 색
         borderColor: "#3B56C3", // 테두리 색상
         borderWidth: 2,
         pointBackgroundColor: 'transparent',
@@ -42,7 +43,7 @@ const RadiusChart = ({ dataset }) => {
     scales: {
       r: {
         ticks: {
-          stepSize: 2.5,
+          stepSize: 10,
           display: false,
         },
         grid: {
@@ -66,6 +67,19 @@ const RadiusChart = ({ dataset }) => {
     plugins: {
       legend: {
         display: false,
+      },
+      datalabels: {
+        display: true, // 숫자 표시
+        color: 'black',
+        font: {
+          weight: 'bold',
+          size: 12,
+        },
+        formatter: (value) => {
+          return value; // 각 데이터 값을 그대로 숫자로 표시
+        },
+        anchor: 'end', // 숫자가 데이터 포인트 외곽에 위치하도록
+        align: 'top', // 숫자가 포인트 위에 위치하도록
       },
     },
     animation: {

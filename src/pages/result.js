@@ -2,34 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import ScoreCardcomplete from '../components/ScoreCard/ScoreCardcomplete';
 import WeakStrongCard from '../components/Weak_Strong_Card/Weak_Strong';
 import ScrollButtons from '../components/buttons/scrollButtons';
-import OverallCardcomplete from '@/components/overallCard/OverallCardcomplete';
+import OverallCard from '../components/overallCard/overallCard';
 import styled from 'styled-components';
-
-/* local Storage로 test.js에서 저장한 데이터를 받아오기 */
-
-
-
-  
- 
-
-/*
-upload.js 에서 데이터를 받아오는 코드 
-const UserScore = () => {
-  const [data, setData] = setData(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: FormData,
-      });
-      const data = await response.json();
-      setData(data);
-    };
-    fetchData();
-  }, []);
-}
-*/
+import Sebucheck from "../components/sebupage/sebucheck"
 
 const DummyScore = {
   total_score : 650,
@@ -39,22 +14,27 @@ const DummyScore = {
   },
   speed : 100,
   volume : 100,
+  clarity : 50,
   grammar : {
     content: [100, 'level', 'comment'],
     politeness: [100, 'level', 'comment'],
     voca : [100, 'level', 'comment'],
     sent_completion : [100, 'level', 'comment'],
   },
-  details : {
-    text: "...",
-    Clarity : { hmm : ["errors" , "errors"] , reps : ["errors" , "errors"] , blur : ["errors" , "errors"] } ,
-    Contents : [{"origin": "", "correct": "", "reason": ""}, {"origin": "", "correct": "", "reason": ""} ] ,
-    Grammar : {
-      contents : [{original: "음…" , corrected : " " }, {original: "음…" , corrected : " " } ] , 
-      politeness : [{original : "error" , corrected : "corrected" }, {original : "error" , corrected : "corrected" }],
-      voca: [{original : "error" , corrected : "corrected" }, {original : "error" , corrected : "corrected" }],
-      sent_complition: [{original : "error" , corrected : "corrected" }, {original : "error" , corrected : "corrected" }]
-    }
+  details: {
+    text: "음… 저는 이 프로젝트를 잘 했다고 생각해... 음... 그런데 음… 제가 제가 실수한 부분도 조금 있었던 것 같아요. \n 잘 넘어가게 되었습니다\n",
+    Clarity: {
+      hmm: ["음…", "음..."] ,
+      reps: ["제가 제가"],
+      blur: ["생각해..."],
+    },
+    Contents : [{origin: "이 프로젝트를", correct: "프로젝트", reason: ""}, {origin: "실수한 부분도", correct: "", reason: ""} ],
+    Grammar: {
+      contents: [{ original: "제가 실수한", corrected: "내가 실수한" }, { original: "안녕", corrected: "" }],
+      politeness: [{ original: "부분도", corrected: "" }, { original: "조금", corrected: "" }],
+      voca: [{ original: "ab", corrected: " " }, { original: "ab", corrected: "" }],
+      sent_complition: [{ original: "add", corrected: "" }, { original: "ad", corrected: "" }],
+    },
   }
 }
 
@@ -66,7 +46,8 @@ const DummyUser = {
 // 1) components 폴더에 css한 카드 위치
 // 2) import해서 <Chartbarcomplete/>처럼 해당된 위치에 배치 
 function Result() {
-
+  const [Data, setData] = useState(null);
+  const [sebuData, setsebuData] = useState(null);
   const overallRef = useRef(null);
   const detailRef = useRef(null);
 
@@ -78,10 +59,12 @@ useEffect(() => {
     if (storedUser) {
       const Data = JSON.parse(storedUser);
       console.log(Data); // useState에서 값 가져오기 
+      // 이 값 추가 
     } else {
       console.log('사용자 정보가 없습니다.');
   }
 }, []);*/
+
 
   return (
    <>
@@ -90,9 +73,10 @@ useEffect(() => {
       <WeakStrongCard weak_strong={DummyScore.weak_strong} User={DummyUser}/>
     </Container>
     <ScrollButtons overallRef={overallRef} detailRef={detailRef}/>
+    <OverallCard Score={DummyScore} ref={overallRef}/>
     <Container ref={detailRef}>
-      
     </Container>
+    <Sebucheck Score ={DummyScore.details} />
    </>
   );
 }
