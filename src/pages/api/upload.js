@@ -166,19 +166,28 @@ export default async (req, res) => {
       const pythonResult2 = await runPythonScript2(file)
 
       const jsonResponse = {
-        speed_score  : pythonResult.speed_analysis.speed_score,
-        speed_comment : pythonResult.speed_analysis.speed_comment,
-        speed_feedback : pythonResult.speed_analysis.speed_feedback,
-        volume_score : pythonResult.volume_analysis.decibel_count,
-        volume_comment : pythonResult.volume_analysis.decibel_comment,
-        volume_feedback : pythonResult.volume_analysis.decibel_feedback,
-        text : pythonResult2.text,
-        strength : pythonResult2.grammar_correction.strengths,
-        weakness : pythonResult2.grammar_correction.weaknesses,
-        feedback : pythonResult2.grammar_correction.content_feedback,
-        total_score : pythonResult2.grammar_correction.total_score
-
-
+        total_score : 0, // 코드 추가 필요 ,
+        weak_strong : {
+          weakness : [pythonResult2.grammar_correction.weak1, pythonResult2.grammar_correction.weak2, pythonResult2.grammar_correction.weak3],
+          strength : [pythonResult2.grammar_correction.strength1, pythonResult2.grammar_correction.strength2, pythonResult2.grammar_correction.strength3],
+        },
+        speed_score  : 0, //pythonResult.speed_analysis.speed_score,
+        volume_score : 0, //pythonResult.volume_analysis.decibel_count,
+        grammar : {
+          contents_score : pythonResult2.grammar_correction.grammar_contents_score,
+          politeness_score : pythonResult2.grammar_correction.grammar_politeness_score,
+          voca_score : pythonResult2.grammar_correction.grammar_voca_score,
+          sentcompletion_score : pythonResult2.grammar_correction.grammar_sentcompletion_score,
+        },
+        details : {
+          text : pythonResult2.text,
+          clarity : [pythonResult2.grammar_correction.detail_clarity_hmm, pythonResult2.grammar_correction.detail_clarity_repititions, pythonResult2.grammar_correction.detail_clarity_blur],
+          contents : [pythonResult2.grammar_correction.detail_contents_origin, pythonResult2.grammar_correction.detail_contents_correct, pythonResult2.grammar_correction.detail_contents_reason],
+          politeness : [pythonResult2.grammar_correction.detail_politeness_origin, pythonResult2.grammar_correction.detail_politeness_correct, pythonResult2.grammar_correction.detail_politeness_reason],
+          voca : [pythonResult2.grammar_correction.detail_voca_origin, pythonResult2.grammar_correction.detail_voca_correct, pythonResult2.grammar_correction.detail_voca_reason],
+          sent_completion : [pythonResult2.grammar_correction.detail_sentcompletion_origin, pythonResult2.grammar_correction.detail_sentcompletion_correct, pythonResult2.grammar_correction.detail_sentcompletion_reason],
+          
+        },
       }
       // 원문을 위해서 그냥 보내도 됨 
       

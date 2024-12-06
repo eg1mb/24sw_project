@@ -77,8 +77,8 @@ export default function Test() {
       if (response.ok) {
         const jsonResponse = await response.json();
         // json.Parse()를 이용해 객체 형태로 바로 바꿀 수 있음 
-        const { average_score, decibel_count, text, strength, weakness, feedback, total_score } = jsonResponse;
-        setFeedback({ average_score, decibel_count, text, strength, weakness, feedback, total_score });
+        const { total_score, weak_strong, speed_score, volume_score, grammar, details } = jsonResponse;
+        setFeedback({ total_score, weak_strong, speed_score, volume_score, grammar, details });
         console.log(jsonResponse ,  "json결과")
         // localStorage형태로 저장 & 데이터 로드 완료시 이동 
         //localStorage.setItem('audio' , audioURL) audioUrl 받기 
