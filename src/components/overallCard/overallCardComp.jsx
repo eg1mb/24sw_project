@@ -117,7 +117,7 @@ const styles = {
   },
   wideCard : {
     width : "100%",
-    minWidth : "47%",
+    minWidth : "48%",
     height : "100%",
     minHeight : "175px",
     margin : "20px",

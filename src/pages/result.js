@@ -73,10 +73,8 @@ useEffect(() => {
       <WeakStrongCard weak_strong={DummyScore.weak_strong} User={DummyUser}/>
     </Container>
     <ScrollButtons overallRef={overallRef} detailRef={detailRef}/>
-    <OverallCard Score={DummyScore} ref={overallRef}/>
-    <Container ref={detailRef}>
-    </Container>
-    <Sebucheck Score ={DummyScore.details} />
+    <OverallCard Score={DummyScore} User={DummyUser} ref={overallRef}/>
+    <Sebucheck Score ={DummyScore.details} ref={detailRef}/>
    </>
   );
 }

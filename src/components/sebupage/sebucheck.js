@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState , useEffect, forwardRef } from "react";
 import RadiusChart from "../RadiusChart/RadiusChart" ;
 
 
@@ -8,7 +8,7 @@ const dataValues = [65, 59, 90, 81, 56, 70, 85];
 
 // props로 chartdata(모든 7개의 값들)과 totalData(미리 짜놓은 객체) , audioURL을 받음 
 
-export default function sebucheck({Score}) {
+const Sebucheck = ({Score}, ref) => {
     const [highlightedText, setHighlightedText] = useState(Score.text); // 초기 상태: 원문
     const [totaldata , setTotaldata ] = useState({details : Score}); // 총 data.details 
     const [chartdata , setChartdata ] = useState([])
@@ -217,7 +217,7 @@ export default function sebucheck({Score}) {
 
 
     return (
-      <div style={styles.analysisContainer}>
+      <div ref={ref} style={styles.analysisContainer}>
         <h1 style={styles.title}>상세 분석</h1>
         <p style={styles.subtitle}>
          발화 분석에 대해 상세하게 알려드릴게요!
@@ -429,3 +429,5 @@ export default function sebucheck({Score}) {
       textAlign: "center", // 중앙 정렬
     },
   };
+
+  export default forwardRef(Sebucheck);
