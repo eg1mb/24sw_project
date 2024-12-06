@@ -166,13 +166,22 @@ export default async (req, res) => {
       const pythonResult2 = await runPythonScript2(file)
 
       const jsonResponse = {
-        total_score : 0, // 코드 추가 필요 ,
+        total_score : (pythonResult.speed_analysis.speed_score) +
+                      (pythonResult.volume_analysis.average_volume_score) +
+                      (pythonResult2.grammar_correction.grammar_contents_score) +
+                      (pythonResult2.grammar_correction.grammar_politeness_score) +
+                      (pythonResult2.grammar_correction.grammar_voca_score) +
+                      (pythonResult2.grammar_correction.grammar_sentcompletion_score), //  ,
+        
         weak_strong : {
           weakness : [pythonResult2.grammar_correction.weak1, pythonResult2.grammar_correction.weak2, pythonResult2.grammar_correction.weak3],
           strength : [pythonResult2.grammar_correction.strength1, pythonResult2.grammar_correction.strength2, pythonResult2.grammar_correction.strength3],
         },
-        speed_score  : 0, //pythonResult.speed_analysis.speed_score,
-        volume_score : 0, //pythonResult.volume_analysis.decibel_count,
+        
+        speed_score: pythonResult.speed_analysis.speed_score,
+        
+        volume_score: pythonResult.volume_analysis.average_volume_score,
+        
         grammar : {
           contents_score : pythonResult2.grammar_correction.grammar_contents_score,
           politeness_score : pythonResult2.grammar_correction.grammar_politeness_score,
