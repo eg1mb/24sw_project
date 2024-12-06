@@ -12,8 +12,8 @@ const Main = styled.div`
   position: relative;
   width: auto; // 크기 조정
   height: auto; // 크기 조정
-  max-width : 180px;
-  max-height : 180px;
+  max-width : 200px;
+  max-height : 200px;
   
 `;
 
@@ -52,7 +52,7 @@ export default function SemiCircleBarChart({score}) {
   };
 
   const Options = {
-    cutout: "95%",
+    cutout: "85%",
     plugins: {
       tooltip: {enabled: false},
     },

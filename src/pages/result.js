@@ -2,42 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import ScoreCardcomplete from '../components/ScoreCard/ScoreCardcomplete';
 import WeakStrongCard from '../components/Weak_Strong_Card/Weak_Strong';
 import ScrollButtons from '../components/buttons/scrollButtons';
-import OverallCardcomplete from '@/components/overallCard/OverallCardcomplete';
+import OverallCard from '../components/overallCard/overallCard';
 import styled from 'styled-components';
-
-/* local Storage로 test.js에서 저장한 데이터를 받아오기 
-useEffect(() => {
-  const storedUser = localStorage.getItem('user');
-  if (storedUser) {
-  const Data = JSON.parse(storedUser);
-  setData(Data)
-  setsebuData(세부부분에 해당하는 것 정리 - 나중에 props로 사용 예정)
-  console.log(userObject.name);  // 사용자 정보 출력
-} else {
-  console.log('사용자 정보가 없습니다.');
-}
-
-  
-  } , [])
-
-/*
-upload.js 에서 데이터를 받아오는 코드 
-const UserScore = () => {
-  const [data, setData] = setData(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: FormData,
-      });
-      const data = await response.json();
-      setData(data);
-    };
-    fetchData();
-  }, []);
-}
-*/
 
 const DummyScore = {
   total_score : 650,
@@ -47,6 +13,7 @@ const DummyScore = {
   },
   speed : 100,
   volume : 100,
+  clarity : 50,
   grammar : {
     content: [100, 'level', 'comment'],
     politeness: [100, 'level', 'comment'],
@@ -73,9 +40,28 @@ const DummyUser = {
 // 1) components 폴더에 css한 카드 위치
 // 2) import해서 <Chartbarcomplete/>처럼 해당된 위치에 배치 
 function Result() {
-
+  const [Data, setData] = useState(null);
+  const [sebuData, setsebuData] = useState(null);
   const overallRef = useRef(null);
   const detailRef = useRef(null);
+
+/*
+// local Storage로 test.js에서 저장한 데이터를 받아오기 
+useEffect(() => {
+  const storedUser = localStorage.getItem('user');
+  if (storedUser) {
+  const Data = JSON.parse(storedUser);
+  setData(Data)
+  setsebuData(Data.details)
+  console.log(userObject.name);  // 사용자 정보 출력
+} else {
+  console.log('사용자 정보가 없습니다.');
+}
+
+  
+  } , [])
+*/
+
 
   return (
    <>
@@ -84,6 +70,7 @@ function Result() {
       <WeakStrongCard weak_strong={DummyScore.weak_strong} User={DummyUser}/>
     </Container>
     <ScrollButtons overallRef={overallRef} detailRef={detailRef}/>
+    <OverallCard Score={DummyScore} ref={overallRef}/>
     <Container ref={detailRef}>
       
     </Container>
