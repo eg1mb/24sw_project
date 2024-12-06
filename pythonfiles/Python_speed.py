@@ -9,6 +9,9 @@ import requests
 from nltk.tokenize import sent_tokenize
 import numpy as np
 import matplotlib.pyplot as plt
+import io
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 
 nltk.download('punkt')  
@@ -130,8 +133,7 @@ def calculate_confidence(decibel_values):
 
     confidence_judgement = decibel_values < threshold
 
-    print(f"Average Decibel: {average_decibel}")
-    print(f"Threshold (80% of Average): {threshold}")
+    
 
     return average_decibel, threshold, confidence_judgement
 

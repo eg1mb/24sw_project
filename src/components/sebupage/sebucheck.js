@@ -4,8 +4,6 @@ import RadiusChart from "../RadiusChart/RadiusChart" ;
 
 
 const dataValues = [65, 59, 90, 81, 56, 70, 85];
-// useEffect 사용해서 수정 
-
 // props로 chartdata(모든 7개의 값들)과 totalData(미리 짜놓은 객체) , audioURL을 받음 
 
 const Sebucheck = ({Score}, ref) => {
@@ -13,6 +11,7 @@ const Sebucheck = ({Score}, ref) => {
     const [totaldata , setTotaldata ] = useState({details : Score}); // 총 data.details 
     const [chartdata , setChartdata ] = useState([])
     const [grammarErrors , setGrammerErr ] = useState("")
+    const [audio , setAudioData] = useState("")
     const [flag , setFlag] = useState(false)
     const [flag2 , setFlag2] = useState(false)
     const [flag3 , setFlag3] = useState(false) // audioURL
@@ -21,19 +20,13 @@ const Sebucheck = ({Score}, ref) => {
 
     useEffect(() => {
       // 이곳에 props를 받기 
-      console.log(Score )
-  
       
+  
+      //api 값 받기 
       setChartdata(dataValues)
-      //const storedURL = localStorage.getItem('audio'); audioUrl 받기 
-
+      // audio 받기
       
-
-
-
-  
-      
-    }, []);  // 의존성 배열이 비어있으면 한 번만 실행
+     } , []); 
     
     const resetToOriginalText = () => {
         setHighlightedText(totaldata.details.text); // 원문으로 초기화
@@ -230,17 +223,21 @@ const Sebucheck = ({Score}, ref) => {
           <div style={styles.rightBox}>
             {/* 진행률 바 */}
             <div style={styles.progressBar}>
+
+            <div style={{ ...styles.bar, ...styles.bar1, width: "50%" , fontSize : 14 , fontWeight : "bold" }}
+              onClick ={handleGrammarsHighlight}
+              >문법</div>
+
+             <div style={{ ...styles.bar, ...styles.bar2, width: "50%" , fontSize : 14 , fontWeight : "bold" }}
+              onClick={handleContentsHighlight}>내용</div>
              
-              <div style={{ ...styles.bar, ...styles.bar1, width: "50%" ,fontSize : 14 , fontWeight : "bold" }}
+              <div style={{ ...styles.bar, ...styles.bar3, width: "50%" ,fontSize : 14 , fontWeight : "bold" }}
               onClick={handleClarityHighlight}
               >명확성</div>
              
-              <div style={{ ...styles.bar, ...styles.bar2, width: "50%" , fontSize : 14 , fontWeight : "bold" }}
-              onClick={handleContentsHighlight}>내용</div>
+              
             
-              <div style={{ ...styles.bar, ...styles.bar3, width: "50%" , fontSize : 14 , fontWeight : "bold" }}
-              onClick ={handleGrammarsHighlight}
-              >문법</div>
+              
 
             <div style={{ ...styles.bar, ...styles.bar3, width: "50%" , fontSize : 14 , fontWeight : "bold" }}
               onClick ={handleTotal}

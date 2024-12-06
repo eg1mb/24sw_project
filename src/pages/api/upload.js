@@ -33,7 +33,7 @@ const runMiddleware = (req, res, fn) => {
 // 목소리 속도 
 const runPythonScript = async (file) => {
   const z = Math.floor(Math.random() * 1000) + 1
-  const pythonPath = 'python';
+  const pythonPath = 'C:\\Users\\khy12\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
   const pythonfilePath = path.join(process.cwd(), 'pythonfiles', 'Python_speed.py');
   const inputPath = path.join(process.cwd(), 'wav');
   const outputPath2 = path.join(inputPath, `output_${z}.wav`);
@@ -41,7 +41,7 @@ const runPythonScript = async (file) => {
 
   return new Promise((resolve, reject) => {
     const { spawn } = require('child_process');
-    const regex = new RegExp('\\{(.*?)\\}', 'g');  // 중괄호로 묶인 부분을 찾는 정규 표현식
+    //const regex = new RegExp('\\{(.*?)\\}', 'g');  // 중괄호로 묶인 부분을 찾는 정규 표현식
     const childPython = spawn(pythonPath, [pythonfilePath, file, outputPath2], {
       encoding: 'utf-8'  // 인코딩을 UTF-8로 설정
     });
@@ -61,11 +61,11 @@ const runPythonScript = async (file) => {
       } else {
         try {
           // 마지막 줄만 추출
-          const lastLine =  result.match(regex);  // 마지막 줄만 추출
-          console.log('Last result:', lastLine);  // 마지막 줄 확인
-          
+           // 마지막 줄만 추출
+          console.log('Last result:', result);  // 마지막 줄 확인
+          const result2 = result.trim()
           // 마지막 줄이 JSON이라면 파싱
-          const jsonResult = JSON.parse(lastLine);  // JSON으로 변환
+          const jsonResult = JSON.parse(result2);  // JSON으로 변환
           resolve(jsonResult);  // JSON 객체 반환
         } catch (error) {
           console.error('Error parsing result:', error.message); // 에러 로그
@@ -128,6 +128,7 @@ const convertAudio = async (filePath, outputFormat) => {
   return new Promise((resolve, reject) => {
     // date.now() 
     const z = Math.floor(Math.random() * 1000) + 1
+    // mp3 이름 변환 날짜로 이름 정함 => 가져옴 
     const outputPath = path.join(uploadPath, `output_${z}.${outputFormat}`);
     const ffmpegPath = 'C:\\ffmpeg\\bin\\ffmpeg.exe';
     exec(`"${ffmpegPath}" -i "${filePath}" "${outputPath}"`, (error, stdout, stderr) => {
@@ -165,6 +166,8 @@ export default async (req, res) => {
       const pythonResult = await runPythonScript(file)
       const pythonResult2 = await runPythonScript2(file)
 
+      console.log("pythonresult" , pythonResult)
+
       const jsonResponse = {
         total_score : (pythonResult.speed_analysis.speed_score) +
                       (pythonResult.volume_analysis.average_volume_score) +
@@ -198,9 +201,9 @@ export default async (req, res) => {
           
         },
       }
-      // 원문을 위해서 그냥 보내도 됨 
       
-      console.log("json response" , jsonResponse)
+      
+    
 
 res.status(200).json(jsonResponse);
 } catch (error) {

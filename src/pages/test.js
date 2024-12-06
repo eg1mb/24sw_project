@@ -76,14 +76,11 @@ export default function Test() {
 
       if (response.ok) {
         const jsonResponse = await response.json();
-        // json.Parse()를 이용해 객체 형태로 바로 바꿀 수 있음 
-        const { total_score, weak_strong, speed_score, volume_score, grammar, details } = jsonResponse;
-        setFeedback({ total_score, weak_strong, speed_score, volume_score, grammar, details });
-        console.log(jsonResponse ,  "json결과")
+        
+        
         // localStorage형태로 저장 & 데이터 로드 완료시 이동 
-        //localStorage.setItem('audio' , audioURL) audioUrl 받기 
-        //localStorage.setItem('user', JSON.stringify(jsonResponse));
-        //router.push('/result');
+        localStorage.setItem('user', JSON.stringify(jsonResponse));
+        router.push('/result');
         
         setLoading(false); 
       } else {
@@ -95,6 +92,8 @@ export default function Test() {
       setLoading(false);
     }
   };
+
+  
 
   return (
     <div style={styles.container}>

@@ -83,7 +83,7 @@ const RadiusChart = ({ dataset }) => {
       },
     },
     animation: {
-      duration: 0,
+      duration: 1,
     },
   };
 

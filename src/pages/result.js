@@ -28,7 +28,9 @@ const DummyScore = {
       reps: ["제가 제가"],
       blur: ["생각해..."],
     },
-    Contents : [{origin: "이 프로젝트를", correct: "프로젝트", reason: ""}, {origin: "실수한 부분도", correct: "", reason: ""} ],
+    Contents : [{origin: "이 프로젝트를", correct: "프로젝트", reason: ""}, {origin: "실수한 부분도", correct: "", reason: ""} ,
+      {origin : "잘" , correct : "잘로" , reason : "잘은 잘로로 수정"}
+    ],
     Grammar: {
       contents: [{ original: "제가 실수한", corrected: "내가 실수한" }, { original: "안녕", corrected: "" }],
       politeness: [{ original: "부분도", corrected: "" }, { original: "조금", corrected: "" }],
@@ -51,19 +53,23 @@ function Result() {
   const overallRef = useRef(null);
   const detailRef = useRef(null);
 
-/* local storage를 이용해 test.js의 값 가져오는 것 
+/* local storage를 이용해 test.js의 값 가져오는 것 */
+
 useEffect(() => {
   // 클라이언트 사이드에서만 실행되도록 조건 추가
   
     const storedUser = localStorage.getItem('user');
+    
     if (storedUser) {
       const Data = JSON.parse(storedUser);
+      setData(Data)
       console.log(Data); // useState에서 값 가져오기 
+
       // 이 값 추가 
     } else {
       console.log('사용자 정보가 없습니다.');
   }
-}, []);*/
+}, []);
 
 
   return (
