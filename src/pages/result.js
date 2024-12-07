@@ -50,6 +50,7 @@ function Result() {
   const [DummyScore , setData] = useState(dummyScore);
   const overallRef = useRef(null);
   const detailRef = useRef(null);
+  const [array , setArray ] = useState([])
 
 /* local storage를 이용해 test.js의 값 가져오는 것 */
 
@@ -60,9 +61,12 @@ useEffect(() => {
     
     if (storedUser) {
       const Data = JSON.parse(storedUser);
-     
+      const ary = [Math.floor(Data.volume_score), Data.speed_score , Data.grammar.contents_score , Data.grammar.politeness_score , Data.grammar.sentcompletion_score , Data.grammar.voca_score   ]
+      console.log(ary)
+      setArray(ary)
       console.log(Data); // useState에서 값 가져오기
       setData(Data) 
+
 
       // 이 값 추가 
     } else {
@@ -73,13 +77,13 @@ useEffect(() => {
 
   return (
    <>
-    <Container>
+   <Container>
       <ScoreCardcomplete Score={DummyScore} User={DummyUser}/>
       <WeakStrongCard weak_strong={DummyScore.weak_strong} User={DummyUser}/>
     </Container>
     <ScrollButtons overallRef={overallRef} detailRef={detailRef}/>
     <OverallCard Score={DummyScore} User={DummyUser} ref={overallRef}/>
-    <Sebucheck Score ={DummyScore.details} ref={detailRef}/>
+    <Sebucheck Score ={DummyScore.details} Array ={array} ref={detailRef}/>
    </>
   );
 }

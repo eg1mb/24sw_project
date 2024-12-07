@@ -76,6 +76,7 @@ export default function Test() {
 
       if (response.ok) {
         const jsonResponse = await response.json();
+        console.log("json결과" , jsonResponse)
         
         
         // localStorage형태로 저장 & 데이터 로드 완료시 이동 

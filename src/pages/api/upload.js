@@ -194,7 +194,7 @@ export default async (req, res) => {
           sentcompletion_score : pythonResult2.grammar.grammar_sentcompletion_score,
         },
         details : {
-          text : pythonResult2.grammar.text,
+          text : pythonResult2.text,
           Clarity : {hmm : [pythonResult2.grammar.detail_clarity_hmm] , reps : [pythonResult2.grammar.detail_clarity_repititions] ,
             blur : [pythonResult2.grammar.detail_clarity_blur]
           },

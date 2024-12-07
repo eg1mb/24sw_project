@@ -6,7 +6,7 @@ import RadiusChart from "../RadiusChart/RadiusChart" ;
 const dataValues = [65, 59, 90, 81, 56, 70, 85];
 // props로 chartdata(모든 7개의 값들)과 totalData(미리 짜놓은 객체) , audioURL을 받음 
 
-const Sebucheck = ({Score}, ref) => {
+const Sebucheck = ({Score},{Array} , ref) => {
     const [highlightedText, setHighlightedText] = useState(Score.text); // 초기 상태: 원문
     const [totaldata , setTotaldata ] = useState({details : Score}); // 총 data.details 
     const [chartdata , setChartdata ] = useState([])
@@ -18,15 +18,17 @@ const Sebucheck = ({Score}, ref) => {
     const [flag4 , setFlag4] = useState(false) // 총 평가 8개의 원형으로   
 
 
+
     useEffect(() => {
       // 이곳에 props를 받기 
-      
-  
+      setTotaldata({details :Score })
+      setHighlightedText(Score.text)
+       
       //api 값 받기 
-      setChartdata(dataValues)
+      setChartdata(Array)
       // audio 받기
       
-     } , []); 
+     } , [Score]); 
     
     const resetToOriginalText = () => {
         setHighlightedText(totaldata.details.text); // 원문으로 초기화
@@ -72,13 +74,12 @@ const Sebucheck = ({Score}, ref) => {
         setFlag3(false)
         setFlag4(false)
         setGrammerErr("");
-        const { contents, politeness, voca, sent_complition } = totaldata.details.Grammar;
+        const { politeness, voca, sent_completion        } = totaldata.details.Grammar;
     
         const highlights = [
-          ...contents.map((item) => item.original),
           ...politeness.map((item) => item.original),
           ...voca.map((item) => item.original),
-          ...sent_complition.map((item) => item.original),
+          ...sent_completion.map((item) => item.original),
         ];
     
         const sentences = totaldata.details.text.split("\n"); // 문장 단위로 나누기
@@ -122,15 +123,13 @@ const Sebucheck = ({Score}, ref) => {
       // 문법 오류 확인하는 함수 
       const checkSentenceGrammar = (sen) => {
         const polite = totaldata.details.Grammar.politeness
-        const comple = totaldata.details.Grammar.sent_complition
+        const comple = totaldata.details.Grammar.sent_completion
         const voca = totaldata.details.Grammar.voca
-        const contents = totaldata.details.Grammar.contents
     
         const result = {
           polite : polite.filter((a) => sen.includes(a.original)),
           comple : comple.filter((a) => sen.includes(a.original)),
           voca : voca.filter((a) => sen.includes(a.original)),
-          contents : contents.filter((a) => sen.includes(a.original))
         }
         console.log(result)
         setGrammerErr(result)
@@ -257,7 +256,7 @@ const Sebucheck = ({Score}, ref) => {
                 marginBottom: "10px" }}>높임 표현</h4>
                 {grammarErrors.polite.map((item, index) => (
                   <p key={index}>
-                    "{item.original}"은 "{item.corrected}"로 수정해야 합니다 
+                    "{item.original}"은 "{item.corrected}"로 수정해야 합니다 <br/>
                     ({item.reason})
                   </p>
                 ))}
@@ -272,7 +271,7 @@ const Sebucheck = ({Score}, ref) => {
                 marginBottom: "5px" }}>문장 완성</h4>
                 {grammarErrors.comple.map((item, index) => (
                   <p key={index}>
-                    "{item.original}"를 "{item.corrected}"로 수정해야 합니다 
+                    "{item.original}"를 "{item.corrected}"로 수정해야 합니다 <br/>
                     ({item.reason})
                   </p>
                 ))}
@@ -287,7 +286,7 @@ const Sebucheck = ({Score}, ref) => {
                 marginBottom: "5px" }}>어휘</h4>
                 {grammarErrors.voca.map((item, index) => (
                   <p key={index}>
-                    "{item.original}"를 "{item.corrected}"로 수정해야 합니다 
+                    "{item.original}"를 "{item.corrected}"로 수정해야 합니다 <br/>
                     ({item.reason})
                   </p>
                 ))}
@@ -403,7 +402,7 @@ const Sebucheck = ({Score}, ref) => {
       height: "280px",
       backgroundColor: "#E3E5E6", // 배경색 수정
       borderRadius: "10px",
-      
+      overflowY: "auto", // 스크롤바 활성화
       textAlign: "center", // 텍스트 중앙 정렬
       display: "flex",
       justifyContent: "center",
