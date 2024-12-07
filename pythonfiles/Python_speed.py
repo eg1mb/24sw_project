@@ -29,7 +29,7 @@ def convert_to_wav(input_file, output_file):
             [ffmpegPath, '-i', input_file, '-ar', '16000', '-ac', '1', output_file],
             check=True
         )
-        print(f"Converted {input_file} to {output_file}")
+        #print(f"Converted {input_file} to {output_file}")
     except subprocess.CalledProcessError as e:
         print(f"Error during file conversion: {e}")
         raise
@@ -99,13 +99,10 @@ def analyze_speech(input_file , file_path):
     ####json 이런 형식으로 보내기! ({" " : [ ]} <= 이런 형식으로 변수 : 리스트 만들어도 가능  ) 
      # JSON 데이터 생성
     result = {
-        "speed_analysis": {
-            "speed_score": speed_score
-        },
-        "volume_analysis": {
-            "average_volume_score": decibel_count
+        "speed_score": speed_score,
+        "average_volume_score": decibel_count
         }
-    }
+    
 
     # JSON 데이터를 stdout으로 출력
     print(json.dumps(result, ensure_ascii=False, indent=4))

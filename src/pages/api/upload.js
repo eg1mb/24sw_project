@@ -33,7 +33,7 @@ const runMiddleware = (req, res, fn) => {
 // 목소리 속도 
 const runPythonScript = async (file) => {
   const z = Math.floor(Math.random() * 1000) + 1
-  const pythonPath = 'C:\\Users\\khy12\\AppData\\Local\\Programs\\Python\\Python312\\python.exe';
+  const pythonPath = 'python';
   const pythonfilePath = path.join(process.cwd(), 'pythonfiles', 'Python_speed.py');
   const inputPath = path.join(process.cwd(), 'wav');
   const outputPath2 = path.join(inputPath, `output_${z}.wav`);
@@ -104,7 +104,7 @@ const runPythonScript2 = async (file) => {
       } else {
         try {
           // 마지막 줄만 추측 
-          console.log("result 결과 :" , result)
+          console.log("PythonScript2 실행 결과 :" , result)
           const result2 = result.trim()
           const jsonResult = JSON.parse(result2); 
           resolve(jsonResult);  // JSON 객체 반환
@@ -169,41 +169,51 @@ export default async (req, res) => {
       console.log("pythonresult" , pythonResult)
 
       const jsonResponse = {
-        total_score : (pythonResult.speed_analysis.speed_score) +
-                      (pythonResult.volume_analysis.average_volume_score) +
-                      (pythonResult2.grammar_correction.grammar_contents_score) +
-                      (pythonResult2.grammar_correction.grammar_politeness_score) +
-                      (pythonResult2.grammar_correction.grammar_voca_score) +
-                      (pythonResult2.grammar_correction.grammar_sentcompletion_score), //  ,
+        total_score : (pythonResult.speed_score) +
+                      (pythonResult.average_volume_score) +
+                      (pythonResult2.grammar.grammar_contents_score) +
+                      (pythonResult2.grammar.grammar_politeness_score) +
+                      (pythonResult2.grammar.grammar_voca_score) +
+                      (pythonResult2.grammar.grammar_sentcompletion_score), //  ,
         
         weak_strong : {
-          weakness : [pythonResult2.grammar_correction.weak1, pythonResult2.grammar_correction.weak2, pythonResult2.grammar_correction.weak3],
-          strength : [pythonResult2.grammar_correction.strength1, pythonResult2.grammar_correction.strength2, pythonResult2.grammar_correction.strength3],
+          weakness : [pythonResult2.grammar.weak1, pythonResult2.grammar.weak2, pythonResult2.grammar.weak3],
+          strength : [pythonResult2.grammar.strength1, pythonResult2.grammar.strength2, pythonResult2.grammar.strength3],
         },
         
-        speed_score: pythonResult.speed_analysis.speed_score,
+        speed_score: pythonResult.speed_score,
         
-        volume_score: pythonResult.volume_analysis.average_volume_score,
+        volume_score: pythonResult.average_volume_score,
         
         grammar : {
-          contents_score : pythonResult2.grammar_correction.grammar_contents_score,
-          politeness_score : pythonResult2.grammar_correction.grammar_politeness_score,
-          voca_score : pythonResult2.grammar_correction.grammar_voca_score,
-          sentcompletion_score : pythonResult2.grammar_correction.grammar_sentcompletion_score,
+          contents_score : pythonResult2.grammar.grammar_contents_score,
+          politeness_score : pythonResult2.grammar.grammar_politeness_score,
+          voca_score : pythonResult2.grammar.grammar_voca_score,
+          sentcompletion_score : pythonResult2.grammar.grammar_sentcompletion_score,
         },
         details : {
-          text : pythonResult2.text,
-          clarity : [pythonResult2.grammar_correction.detail_clarity_hmm, pythonResult2.grammar_correction.detail_clarity_repititions, pythonResult2.grammar_correction.detail_clarity_blur],
-          contents : [pythonResult2.grammar_correction.detail_contents_origin, pythonResult2.grammar_correction.detail_contents_correct, pythonResult2.grammar_correction.detail_contents_reason],
-          politeness : [pythonResult2.grammar_correction.detail_politeness_origin, pythonResult2.grammar_correction.detail_politeness_correct, pythonResult2.grammar_correction.detail_politeness_reason],
-          voca : [pythonResult2.grammar_correction.detail_voca_origin, pythonResult2.grammar_correction.detail_voca_correct, pythonResult2.grammar_correction.detail_voca_reason],
-          sent_completion : [pythonResult2.grammar_correction.detail_sentcompletion_origin, pythonResult2.grammar_correction.detail_sentcompletion_correct, pythonResult2.grammar_correction.detail_sentcompletion_reason],
-          
+          text : pythonResult2.grammar.text,
+          clarity : [pythonResult2.grammar.detail_clarity_hmm, pythonResult2.grammar.detail_clarity_repititions, pythonResult2.grammar.detail_clarity_blur],
+          contents : [
+            {original : pythonResult2.grammar.detail_contents_origin1, corrected : pythonResult2.grammar.detail_contents_correct1, reason : pythonResult2.grammar.detail_contents_reason1},
+            {original : pythonResult2.grammar.detail_contents_origin2, corrected : pythonResult2.grammar.detail_contents_correct2, reason : pythonResult2.grammar.detail_contents_reason2}],
+          politeness : [
+            {original : pythonResult2.grammar.detail_politeness_origin1, corrected : pythonResult2.grammar.detail_politeness_correct1, reason : pythonResult2.grammar.detail_politeness_reason1},
+            {original : pythonResult2.grammar.detail_politeness_origin2, corrected : pythonResult2.grammar.detail_politeness_correct2, reason : pythonResult2.grammar.detail_politeness_reason2}
+        ],
+        voca : [
+            {original : pythonResult2.grammar.detail_voca_origin1, corrected : pythonResult2.grammar.detail_voca_correct1, reason : pythonResult2.grammar.detail_voca_reason1},
+            {original : pythonResult2.grammar.detail_voca_origin2, corrected : pythonResult2.grammar.detail_voca_correct2, reason : pythonResult2.grammar.detail_voca_reason2}
+        ],
+        sent_completion : [
+            {original : pythonResult2.grammar.detail_sentcompletion_origin1, corrected : pythonResult2.grammar.detail_sentcompletion_correct1, reason : pythonResult2.grammar.detail_sentcompletion_reason1},
+            {original : pythonResult2.grammar.detail_sentcompletion_origin2, corrected : pythonResult2.grammar.detail_sentcompletion_correct2, reason : pythonResult2.grammar.detail_sentcompletion_reason2}
+        ]
         },
       }
       
       
-    
+      console.log("jsonResponse" , JSON.stringify(jsonResponse, null, 2))    
 
 res.status(200).json(jsonResponse);
 } catch (error) {
