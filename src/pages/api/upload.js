@@ -168,6 +168,8 @@ export default async (req, res) => {
 
       console.log("pythonresult" , pythonResult)
 
+    
+
       const jsonResponse = {
         total_score : (pythonResult.speed_score) +
                       (pythonResult.average_volume_score) +
@@ -193,24 +195,32 @@ export default async (req, res) => {
         },
         details : {
           text : pythonResult2.grammar.text,
-          clarity : [pythonResult2.grammar.detail_clarity_hmm, pythonResult2.grammar.detail_clarity_repititions, pythonResult2.grammar.detail_clarity_blur],
-          contents : [
-            {original : pythonResult2.grammar.detail_contents_origin1, corrected : pythonResult2.grammar.detail_contents_correct1, reason : pythonResult2.grammar.detail_contents_reason1},
-            {original : pythonResult2.grammar.detail_contents_origin2, corrected : pythonResult2.grammar.detail_contents_correct2, reason : pythonResult2.grammar.detail_contents_reason2}],
-          politeness : [
-            {original : pythonResult2.grammar.detail_politeness_origin1, corrected : pythonResult2.grammar.detail_politeness_correct1, reason : pythonResult2.grammar.detail_politeness_reason1},
-            {original : pythonResult2.grammar.detail_politeness_origin2, corrected : pythonResult2.grammar.detail_politeness_correct2, reason : pythonResult2.grammar.detail_politeness_reason2}
-        ],
-        voca : [
-            {original : pythonResult2.grammar.detail_voca_origin1, corrected : pythonResult2.grammar.detail_voca_correct1, reason : pythonResult2.grammar.detail_voca_reason1},
-            {original : pythonResult2.grammar.detail_voca_origin2, corrected : pythonResult2.grammar.detail_voca_correct2, reason : pythonResult2.grammar.detail_voca_reason2}
-        ],
-        sent_completion : [
-            {original : pythonResult2.grammar.detail_sentcompletion_origin1, corrected : pythonResult2.grammar.detail_sentcompletion_correct1, reason : pythonResult2.grammar.detail_sentcompletion_reason1},
-            {original : pythonResult2.grammar.detail_sentcompletion_origin2, corrected : pythonResult2.grammar.detail_sentcompletion_correct2, reason : pythonResult2.grammar.detail_sentcompletion_reason2}
-        ]
+          Clarity : {hmm : [pythonResult2.grammar.detail_clarity_hmm] , reps : [pythonResult2.grammar.detail_clarity_repititions] ,
+            blur : [pythonResult2.grammar.detail_clarity_blur]
+          },
+          Contents : [
+            {origin : pythonResult2.grammar.detail_contents_origin1, correct : pythonResult2.grammar.detail_contents_correct1, reason : pythonResult2.grammar.detail_contents_reason1},
+            {origin : pythonResult2.grammar.detail_contents_origin2, correct : pythonResult2.grammar.detail_contents_correct2, reason : pythonResult2.grammar.detail_contents_reason2}],
+          Grammar : {
+            politeness : [
+              {original : pythonResult2.grammar.detail_politeness_origin1, corrected : pythonResult2.grammar.detail_politeness_correct1, reason : pythonResult2.grammar.detail_politeness_reason1},
+              {original : pythonResult2.grammar.detail_politeness_origin2, corrected : pythonResult2.grammar.detail_politeness_correct2, reason : pythonResult2.grammar.detail_politeness_reason2}
+          ],
+          voca : [
+              {original : pythonResult2.grammar.detail_voca_origin1, corrected : pythonResult2.grammar.detail_voca_correct1, reason : pythonResult2.grammar.detail_voca_reason1},
+              {original : pythonResult2.grammar.detail_voca_origin2, corrected : pythonResult2.grammar.detail_voca_correct2, reason : pythonResult2.grammar.detail_voca_reason2}
+          ],
+          sent_completion : [
+              {original : pythonResult2.grammar.detail_sentcompletion_origin1, corrected : pythonResult2.grammar.detail_sentcompletion_correct1, reason : pythonResult2.grammar.detail_sentcompletion_reason1},
+              {original : pythonResult2.grammar.detail_sentcompletion_origin2, corrected : pythonResult2.grammar.detail_sentcompletion_correct2, reason : pythonResult2.grammar.detail_sentcompletion_reason2}
+          ],
+
+          }
+         
         },
       }
+
+      
       
       
       console.log("jsonResponse" , JSON.stringify(jsonResponse, null, 2))    

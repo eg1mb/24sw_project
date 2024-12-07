@@ -258,6 +258,7 @@ const Sebucheck = ({Score}, ref) => {
                 {grammarErrors.polite.map((item, index) => (
                   <p key={index}>
                     "{item.original}"은 "{item.corrected}"로 수정해야 합니다 
+                    ({item.reason})
                   </p>
                 ))}
               </div>
@@ -272,6 +273,7 @@ const Sebucheck = ({Score}, ref) => {
                 {grammarErrors.comple.map((item, index) => (
                   <p key={index}>
                     "{item.original}"를 "{item.corrected}"로 수정해야 합니다 
+                    ({item.reason})
                   </p>
                 ))}
               </div>
@@ -286,25 +288,12 @@ const Sebucheck = ({Score}, ref) => {
                 {grammarErrors.voca.map((item, index) => (
                   <p key={index}>
                     "{item.original}"를 "{item.corrected}"로 수정해야 합니다 
+                    ({item.reason})
                   </p>
                 ))}
               </div>
             )}
 
-            {grammarErrors.contents.length > 0 && (
-              <div>
-                <h4 style={{ color : "#3B56C3"
-                ,fontSize: "1rem", // 글씨 크기 증가
-                fontWeight: "bold",
-                marginBottom: "5px" }}
-                >내용</h4>
-                {grammarErrors.contents.map((item, index) => (
-                  <p key={index}>
-                  "{item.original}"를 "{item.corrected}"로 수정해야 합니다
-                  </p>
-                ))}
-              </div>
-            )}
           </div>
         ) : <div></div> }
     

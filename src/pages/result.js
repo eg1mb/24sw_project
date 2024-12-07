@@ -6,7 +6,7 @@ import OverallCard from '../components/overallCard/overallCard';
 import styled from 'styled-components';
 import Sebucheck from "../components/sebupage/sebucheck"
 
-const DummyScore = {
+const dummyScore = {
   total_score : 650,
   weak_strong : {
     weakness : ['약점1', '약점2', '약점3'],
@@ -32,10 +32,9 @@ const DummyScore = {
       {origin : "잘" , correct : "잘로" , reason : "잘은 잘로로 수정"}
     ],
     Grammar: {
-      contents: [{ original: "제가 실수한", corrected: "내가 실수한" }, { original: "안녕", corrected: "" }],
-      politeness: [{ original: "부분도", corrected: "" }, { original: "조금", corrected: "" }],
-      voca: [{ original: "ab", corrected: " " }, { original: "ab", corrected: "" }],
-      sent_complition: [{ original: "add", corrected: "" }, { original: "ad", corrected: "" }],
+      politeness: [{ original: "부분도", corrected: "" , reason : ""}, { original: "조금", corrected: "" , reason : "" }],
+      voca: [{ original: "ab", corrected: " " , reason : "" }, { original: "ab", corrected: "" , reason : ""}],
+      sent_complition: [{ original: "add", corrected: "", reason : "" }, { original: "ad", corrected: "" , reason : ""}],
     },
   }
 }
@@ -48,8 +47,7 @@ const DummyUser = {
 // 1) components 폴더에 css한 카드 위치
 // 2) import해서 <Chartbarcomplete/>처럼 해당된 위치에 배치 
 function Result() {
-  const [Data, setData] = useState(null);
-  const [sebuData, setsebuData] = useState(null);
+  const [DummyScore , setData] = useState(dummyScore);
   const overallRef = useRef(null);
   const detailRef = useRef(null);
 
@@ -62,8 +60,9 @@ useEffect(() => {
     
     if (storedUser) {
       const Data = JSON.parse(storedUser);
-      setData(Data)
-      console.log(Data); // useState에서 값 가져오기 
+     
+      console.log(Data); // useState에서 값 가져오기
+      setData(Data) 
 
       // 이 값 추가 
     } else {
