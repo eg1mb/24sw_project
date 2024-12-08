@@ -23,6 +23,13 @@ nltk.download('punkt_tab')
 # 음성 파일 형식을 WAV로 변환하기
 def convert_to_wav(input_file, output_file):
     try:
+        # output 파일 경로 추출
+        output_dir = os.path.dirname(output_file)
+
+        # 없으면 생성
+        if output_dir and not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
         # ffmpeg를 이용하여 mp3 -> wav 변환
         ffmpegPath = 'C:\\ffmpeg\\bin\\ffmpeg.exe'
         subprocess.run(
