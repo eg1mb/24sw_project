@@ -31,7 +31,7 @@ const ContentCard = ({content}) => {
         속도
       </div>
       <div style={styles.score}>
-        {content[0]}
+        {content}
       </div>
     </div>
   )
@@ -44,7 +44,7 @@ const VocaCard = ({voca}) => {
         단어 속도
       </div>
       <div style={styles.score}>
-        {voca[0]}
+        {voca}
       </div>
     </div>
   )
@@ -57,7 +57,7 @@ const SentCompletionCard = ({sent_completion}) => {
         문장 완성도
       </div>
       <div style={styles.score}>
-        {sent_completion[0]}
+        {sent_completion}
       </div>
     </div>
   )
@@ -70,7 +70,7 @@ const PolitenessCard = ({politeness}) => {
         어투
       </div>
       <div style={styles.score}>
-        {politeness[0]}
+        {politeness}
       </div>
     </div>
   )

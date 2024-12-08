@@ -9,14 +9,14 @@ const OverallCard = ({Score, User}, ref) => {
         {User.name}님은 각 항목에서 몇점을 받았을까요?
       </div>
       <div style={styles.container}>
-        <SpeedCard speed={Score.speed}/>
-        <VolumeCard volume={Score.volume}/>
-        <ContentCard content={Score.grammar.content}/>
-        <VocaCard voca={Score.grammar.voca}/>
+        <SpeedCard speed={Score.speed_score}/>
+        <VolumeCard volume={Score.volume_score}/>
+        <ContentCard content={Score.grammar.contents_score}/>
+        <VocaCard voca={Score.grammar.voca_score}/>
       </div>
       <div style={styles.container}>
-        <SentCompletionCard sent_completion={Score.grammar.sent_completion}/>
-        <PolitenessCard politeness={Score.grammar.politeness}/>
+        <SentCompletionCard sent_completion={Score.grammar.sentcompletion_score}/>
+        <PolitenessCard politeness={Score.grammar.politeness_score}/>
         <ClarityCard clarity={Score.clarity}/>
       </div>
     </div>
