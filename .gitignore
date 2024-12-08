@@ -43,4 +43,5 @@ next-env.d.ts
 .venv/
 
 # mp3
-uploads/
+/uploads/
+/wav/
