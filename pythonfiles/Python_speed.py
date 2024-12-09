@@ -101,7 +101,7 @@ def analyze_speech(input_file , file_path):
         
     # 최종 평균 점수
     speed_score = round(sum(scores) / len(scores))  # 정수로 변환
-    decibel_count = main2(file_path)
+    decibel_count = rount(main2(file_path)) #round를 통해 정수로 변환
     
     ####json 이런 형식으로 보내기! ({" " : [ ]} <= 이런 형식으로 변수 : 리스트 만들어도 가능  ) 
      # JSON 데이터 생성
