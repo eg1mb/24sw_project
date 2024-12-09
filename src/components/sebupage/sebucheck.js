@@ -6,7 +6,7 @@ import RadiusChart from "../RadiusChart/RadiusChart" ;
 const dataValues = [65, 59, 90, 81, 56, 70, 85];
 // props로 chartdata(모든 7개의 값들)과 totalData(미리 짜놓은 객체) , audioURL을 받음 
 
-const Sebucheck = ({Score , Array}) => {
+const Sebucheck = ({Score , Array }, ref ) => {
     const [highlightedText, setHighlightedText] = useState(Score.text); // 초기 상태: 원문
     const [totaldata , setTotaldata ] = useState({details : Score}); // 총 data.details 
     const [chartdata , setChartdata ] = useState([])
@@ -209,7 +209,7 @@ const Sebucheck = ({Score , Array}) => {
 
 
     return (
-      <div  style={styles.analysisContainer}>
+      <div ref={ref} style={styles.analysisContainer}>
         <h1 style={styles.title}>상세 분석</h1>
         <p style={styles.subtitle}>
          발화 분석에 대해 상세하게 알려드릴게요!
@@ -410,9 +410,11 @@ const Sebucheck = ({Score , Array}) => {
       textAlign: "center", // 텍스트 중앙 정렬
       display: "flex",
       justifyContent: "center",
-      alignItems: "center",
+      alignItems: "flex-start", // 텍스트 위에서 시작
       padding: "20px",
-      textAlign : "left"
+      textAlign: "left", // 텍스트 왼쪽 정렬
+      whiteSpace: "pre-wrap", // 텍스트 줄바꿈 활성화
+      overflowWrap: "break-word", // 긴 단어를 줄바꿈
     },
     highlightedText: {
       fontSize: "1.2rem", // 크기 증가
