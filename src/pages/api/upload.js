@@ -192,6 +192,7 @@ export default async (req, res) => {
           politeness_score : pythonResult2.grammar.grammar_politeness_score,
           voca_score : pythonResult2.grammar.grammar_voca_score,
           sentcompletion_score : pythonResult2.grammar.grammar_sentcompletion_score,
+          clarity_score : pythonResult2.grammar.detail_clarity_score 
         },
         details : {
           text : pythonResult2.text,

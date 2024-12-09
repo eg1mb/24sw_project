@@ -6,7 +6,7 @@ import RadiusChart from "../RadiusChart/RadiusChart" ;
 const dataValues = [65, 59, 90, 81, 56, 70, 85];
 // props로 chartdata(모든 7개의 값들)과 totalData(미리 짜놓은 객체) , audioURL을 받음 
 
-const Sebucheck = ({Score},{Array} , ref) => {
+const Sebucheck = ({Score , Array}) => {
     const [highlightedText, setHighlightedText] = useState(Score.text); // 초기 상태: 원문
     const [totaldata , setTotaldata ] = useState({details : Score}); // 총 data.details 
     const [chartdata , setChartdata ] = useState([])
@@ -17,7 +17,7 @@ const Sebucheck = ({Score},{Array} , ref) => {
     const [flag3 , setFlag3] = useState(false) // audioURL
     const [flag4 , setFlag4] = useState(false) // 총 평가 8개의 원형으로   
 
-
+  
 
     useEffect(() => {
       // 이곳에 props를 받기 
@@ -209,7 +209,7 @@ const Sebucheck = ({Score},{Array} , ref) => {
 
 
     return (
-      <div ref={ref} style={styles.analysisContainer}>
+      <div  style={styles.analysisContainer}>
         <h1 style={styles.title}>상세 분석</h1>
         <p style={styles.subtitle}>
          발화 분석에 대해 상세하게 알려드릴게요!
@@ -253,7 +253,8 @@ const Sebucheck = ({Score},{Array} , ref) => {
                 <h4 style={{ color : "#3B56C3"
                 ,fontSize: "1rem", // 글씨 크기 증가
                 fontWeight: "bold",
-                marginBottom: "10px" }}>높임 표현</h4>
+                marginBottom: "10px",
+                textAlign : "center" }}>높임 표현</h4>
                 {grammarErrors.polite.map((item, index) => (
                   <p key={index}>
                     "{item.original}"은 "{item.corrected}"로 수정해야 합니다 <br/>
@@ -268,7 +269,8 @@ const Sebucheck = ({Score},{Array} , ref) => {
                 <h4 style={{ color : "#3B56C3"
                 ,fontSize: "1rem", // 글씨 크기 증가
                 fontWeight: "bold",
-                marginBottom: "5px" }}>문장 완성</h4>
+                marginBottom: "5px",
+                textAlign : "center" }}>문장 완성</h4>
                 {grammarErrors.comple.map((item, index) => (
                   <p key={index}>
                     "{item.original}"를 "{item.corrected}"로 수정해야 합니다 <br/>
@@ -283,7 +285,8 @@ const Sebucheck = ({Score},{Array} , ref) => {
                 <h4 style={{ color : "#3B56C3"
                 ,fontSize: "1rem", // 글씨 크기 증가
                 fontWeight: "bold",
-                marginBottom: "5px" }}>어휘</h4>
+                marginBottom: "5px" ,
+                textAlign : "center"}}>어휘</h4>
                 {grammarErrors.voca.map((item, index) => (
                   <p key={index}>
                     "{item.original}"를 "{item.corrected}"로 수정해야 합니다 <br/>
@@ -302,7 +305,8 @@ const Sebucheck = ({Score},{Array} , ref) => {
                 <h4 style={{ color : "#3B56C3"
                 ,fontSize: "1rem", // 글씨 크기 증가
                 fontWeight: "bold",
-                marginBottom: "5px" }}>내용</h4>
+                marginBottom: "5px" ,
+                textAlign : "center" }}>내용</h4>
                 {grammarErrors.map((item, index) => (
                   <p key={index}>
                     "{item.origin}"를 "{item.correct}"로 수정해야 합니다 <br/>
@@ -352,7 +356,7 @@ const Sebucheck = ({Score},{Array} , ref) => {
       backgroundColor: "#E3E5E6", // 배경색 수정
       borderRadius: "10px",
       
-      textAlign: "center", // 텍스트 중앙 정렬
+      textAlign: "left", // 텍스트 중앙 정렬
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -408,6 +412,7 @@ const Sebucheck = ({Score},{Array} , ref) => {
       justifyContent: "center",
       alignItems: "center",
       padding: "20px",
+      textAlign : "left"
     },
     highlightedText: {
       fontSize: "1.2rem", // 크기 증가

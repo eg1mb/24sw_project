@@ -1,6 +1,6 @@
 import { Radar } from "react-chartjs-2";
 
-
+const dataValues = [65, 59, 90, 81, 56, 70, 85];
 const RadiusChart = ({ dataset }) => {
   const COLOR = {
     ORANGE_1: 'rgba(255, 108, 61, 1)',
@@ -11,7 +11,8 @@ const RadiusChart = ({ dataset }) => {
   const data = {
     labels: [
       "속도", 
-      "크기", 
+      "음성량", 
+      "명확성" ,
       "내용 적절성", 
       "어휘 적절성", 
       "문장 완성도", 

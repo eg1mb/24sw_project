@@ -61,7 +61,16 @@ useEffect(() => {
     
     if (storedUser) {
       const Data = JSON.parse(storedUser);
-      const ary = [Math.floor(Data.volume_score), Data.speed_score , Data.grammar.contents_score , Data.grammar.politeness_score , Data.grammar.sentcompletion_score , Data.grammar.voca_score   ]
+      labels: [
+        "속도", 
+        "크기", 
+        "명확성" ,
+        "내용 적절성", 
+        "어휘 적절성", 
+        "문장 완성도", 
+        "높임 표현"
+      ]
+      const ary = [ Data.speed_score , Math.floor(Data.volume_score), Data.grammar.clarity_score , Data.grammar.contents_score ,Data.grammar.voca_score , Data.grammar.sentcompletion_score,  Data.grammar.politeness_score]
       console.log(ary)
       setArray(ary)
       console.log(Data); // useState에서 값 가져오기
@@ -83,7 +92,7 @@ useEffect(() => {
     </Container>
     <ScrollButtons overallRef={overallRef} detailRef={detailRef}/>
     <OverallCard Score={DummyScore} User={DummyUser} ref={overallRef}/>
-    <Sebucheck Score ={DummyScore.details} Array ={array} ref={detailRef}/>
+    <Sebucheck Score ={DummyScore.details} Array ={array} />
    </>
   );
 }
