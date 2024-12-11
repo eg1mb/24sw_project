@@ -176,7 +176,9 @@ export default async (req, res) => {
                       (pythonResult2.grammar.grammar_contents_score) +
                       (pythonResult2.grammar.grammar_politeness_score) +
                       (pythonResult2.grammar.grammar_voca_score) +
-                      (pythonResult2.grammar.grammar_sentcompletion_score), //  ,
+                      (pythonResult2.grammar.grammar_sentcompletion_score)
+                      (pythonResult2.grammar.detail_clarity_score)
+                      , 
         
         weak_strong : {
           weakness : [pythonResult2.grammar.weak1, pythonResult2.grammar.weak2, pythonResult2.grammar.weak3],

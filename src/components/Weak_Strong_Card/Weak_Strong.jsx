@@ -32,7 +32,10 @@ const WeakStrong = ({weak_strong, User}) => {
               <ul>
                 {weak_strong.strength.map((a, i) => {
                   if (i < 3) {
+                  
                     return (
+                      a === 'none' ? <li></li> :
+                      
                       <li style={styles.list} key={i}>{a}</li>
                     )
                   }
@@ -50,6 +53,8 @@ const WeakStrong = ({weak_strong, User}) => {
                 {weak_strong.weakness.map((a, i) => {
                   if (i < 3) {
                     return (
+                      a === 'none' ? <li></li> :
+                      
                       <li style={styles.list} key={i}>{a}</li>
                     )
                   }

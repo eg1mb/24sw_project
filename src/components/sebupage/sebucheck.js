@@ -308,16 +308,20 @@ const Sebucheck = ({Score , Array }, ref ) => {
                 marginBottom: "5px" ,
                 textAlign : "center" }}>내용</h4>
                 {grammarErrors.map((item, index) => (
-                  <p key={index}>
-                    "{item.origin}"를 "{item.correct}"로 수정해야 합니다 <br/>
-                    ({item.reason})
-                  </p>
+                  (item.correct).length === 0 ? <p key={index}>
+                  "{item.origin}"는 사용하지 말아야 합니다 <br/>
+                  ({item.reason})
+                </p> :  <p key={index}>
+                  "{item.origin}"를 "{item.correct}"로 수정해야 합니다 <br/>
+                  ({item.reason})
+                </p> 
+                 
                 ))}
               </div>
             )}
 
     </div>) : <></>}
-    {flag3 ? <div>audioURL 자리 </div> : <div> </div>}  
+    {flag3 ? <div></div> : <div> </div>}  
     {flag4 ? (
       <div><RadiusChart dataset = {chartdata} /></div>
     ) : <div> </div> }
