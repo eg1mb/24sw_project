@@ -17,7 +17,7 @@ const OverallCard = ({Score, User}, ref) => {
       <div style={styles.container}>
         <SentCompletionCard sent_completion={Score.grammar.sentcompletion_score}/>
         <PolitenessCard politeness={Score.grammar.politeness_score}/>
-        <ClarityCard clarity={Score.clarity}/>
+        <ClarityCard clarity={Score.grammar.clarity_score}/>
       </div>
     </div>
   )
