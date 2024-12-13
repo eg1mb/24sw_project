@@ -6,12 +6,11 @@ import RadiusChart from "../RadiusChart/RadiusChart" ;
 const dataValues = [65, 59, 90, 81, 56, 70, 85];
 // props로 chartdata(모든 7개의 값들)과 totalData(미리 짜놓은 객체) , audioURL을 받음 
 
-const Sebucheck = ({Score , Array }, ref ) => {
+const Sebucheck = ({Score, Audio , Array }, ref ) => {
     const [highlightedText, setHighlightedText] = useState(Score.text); // 초기 상태: 원문
     const [totaldata , setTotaldata ] = useState({details : Score}); // 총 data.details 
     const [chartdata , setChartdata ] = useState([])
     const [grammarErrors , setGrammerErr ] = useState("")
-    const [audio , setAudioData] = useState("")
     const [flag , setFlag] = useState(false)
     const [flag2 , setFlag2] = useState(false)
     const [flag3 , setFlag3] = useState(false) // audioURL
@@ -26,10 +25,16 @@ const Sebucheck = ({Score , Array }, ref ) => {
        
       //api 값 받기 
       setChartdata(Array)
-      // audio 받기
       
      } , [Score]); 
+
+     // audio 받기
+     const getAudioFileName = (fullPath) => {
+      const audioFileName = fullPath.split("/").pop();
+      return audioFileName;
+     }
     
+
     const resetToOriginalText = () => {
         setHighlightedText(totaldata.details.text); // 원문으로 초기화
       };
@@ -321,7 +326,7 @@ const Sebucheck = ({Score , Array }, ref ) => {
             )}
 
     </div>) : <></>}
-    {flag3 ? <div></div> : <div> </div>}  
+    {flag3 ? <div><audio src={`/uploads/${getAudioFileName(Audio)}`} controls /></div> : <div> </div>}  
     {flag4 ? (
       <div><RadiusChart dataset = {chartdata} /></div>
     ) : <div> </div> }

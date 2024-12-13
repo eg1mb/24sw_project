@@ -94,7 +94,7 @@ useEffect(() => {
     </Container>
     <ScrollButtons overallRef={overallRef} detailRef={detailRef}/>
     <OverallCard Score={DummyScore} User={DummyUser} ref={overallRef}/>
-    <Sebucheck Score ={DummyScore.details } Array ={array} ref={detailRef} />
+    <Sebucheck Score ={DummyScore.details } Audio ={DummyScore.audio_file} Array ={array} ref={detailRef} />
    </>
   );
 }

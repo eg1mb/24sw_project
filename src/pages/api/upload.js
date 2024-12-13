@@ -171,6 +171,7 @@ export default async (req, res) => {
     
 
       const jsonResponse = {
+        audio_file : file,
         total_score : (pythonResult.speed_score) +
                       (pythonResult.average_volume_score) +
                       (pythonResult2.grammar.grammar_contents_score) +
