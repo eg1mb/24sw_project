@@ -336,18 +336,17 @@ const Sebucheck = ({Score , Array }, ref ) => {
   const styles = {
     analysisContainer: {
       fontFamily: "Arial, sans-serif",
-      maxWidth: "1200px",
-      margin: "0 auto",
+      margin: "10px 70px",
       padding: "20px",
     },
     title: {
-      fontSize: "24px",
+      fontSize: "40px",
       fontWeight: "bold",
       marginBottom: "10px",
     },
     subtitle: {
-      fontSize: "16px",
-      color: "#666",
+      fontSize: "24px",
+      color: "#26262C",
       marginBottom: "20px",
     },
     content: {

@@ -28,13 +28,14 @@ const styles = {
     margin : "10px 70px",
   },
   title : {
-    margin : "0px 20px",
+    margin : "0px 20px 10px 20px",
     fontSize : "40px",
     fontWeight : "bold",
   },
   content : {
     margin : "0px 20px",
     fontSize : "24px",
+    color : "#26262C",
   },
   container : {
     display : "flex",

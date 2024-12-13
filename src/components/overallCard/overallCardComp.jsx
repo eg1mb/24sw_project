@@ -28,7 +28,7 @@ const ContentCard = ({content}) => {
   return (
     <div style={styles.grayCard}>
       <div style={styles.title}>
-        속도
+        내용 적절성
       </div>
       <div style={styles.score}>
         {content}
@@ -41,7 +41,7 @@ const VocaCard = ({voca}) => {
   return (
     <div style={styles.grayCard}>
       <div style={styles.title}>
-        단어 속도
+        어휘 적절성
       </div>
       <div style={styles.score}>
         {voca}
@@ -67,7 +67,7 @@ const PolitenessCard = ({politeness}) => {
   return (
     <div style={styles.grayCard}>
       <div style={styles.title}>
-        어투
+        높임 표현
       </div>
       <div style={styles.score}>
         {politeness}
