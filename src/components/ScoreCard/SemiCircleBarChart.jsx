@@ -1,0 +1,74 @@
+import React from 'react';
+import { styled } from "styled-components";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+const Main = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: auto; // 크기 조정
+  height: auto; // 크기 조정
+  max-width : 200px;
+  max-height : 200px;
+  
+`;
+
+const ArcContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
+const Score = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px; // 텍스트 크기 조정
+  font-weight: bold;
+  color: #2d5ace;
+  font-family: Arial, sans-serif;
+  text-align: center;
+`;
+
+export default function SemiCircleBarChart({score}) {
+  const Data = {
+    labels: [],
+    datasets: [
+      {
+        data: [score, 700 - score],
+        backgroundColor: ["#2d5ace", "#ffffff"],
+        borderColor: ["#2d5ace", "#ffffff"],
+        circumference: 180, // 반원 도넛
+        rotation: 270, // 도넛 회전
+      },
+    ],
+  };
+
+  const Options = {
+    cutout: "85%",
+    plugins: {
+      tooltip: {enabled: false},
+    },
+    hover: {
+      mode: null,
+    },
+  };
+
+  return (
+    <Main>
+      <ArcContainer>
+        <Doughnut data={Data} options={Options} />
+        <Score>
+          {score}점 
+        </Score>
+      </ArcContainer>
+    </Main>
+  );
+}
